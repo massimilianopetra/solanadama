@@ -6,13 +6,13 @@ export default function Features() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2 mb-4">Navigating Uncertainty: The Investor Dilemma in the World of Cryptocurrency</h2>
+            <h2 className="h2 mb-4">The CryptoMunity</h2>
             <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
-			We leverage the power of the DAMA token to reinforce every judgment and assertion made about newly developed tokens. 
-			The DAMA token serves as a unique utility within our platform, enabling stakeholders to participate in the evaluation process and ensuring the integrity 
-			of our assessments. By utilizing the DAMA token, we incentivize active participation from our community members, validating our evaluations and enhancing 
-			the overall reliability of our platform. This approach not only strengthens trust but also promotes a decentralized ecosystem where stakeholders actively 
-			contribute to maintaining the credibility of the cryptocurrency market.
+            SolanaDama is a groundbreaking platform revolutionizing the way investors connect with startup token projects within the Solana network. 
+            SolanDama serves as a bridge between investors and emerging crypto ventures, facilitating seamless engagement and investment opportunities in the 
+            dynamic world of cryptocurrency. Leveraging with our tools we offers a secure and efficient environment 
+            for investors to discover, evaluate, and participate in promising token projects, fostering a vibrant community of crypto enthusiasts and empowering 
+            startups to thrive in the digital economy. Join SolanaDama today and be at the forefront of the next wave of innovation in crypto investment.
 			</p>
           </div>
 
