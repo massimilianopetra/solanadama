@@ -15,7 +15,7 @@ export default function Home() {
       <Hero />
       <Features />
       <GetToken />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Newsletter />
     </>
   )
