@@ -5,7 +5,7 @@ export default function GetToken() {
                 {/* Section header */}
                 <div className="py-12 md:py-14">
                     <div className="max-w-3xl mx-auto text-center pb-8 md:pb-10">
-                        <a name="gettoken">
+                        <a id="gettoken">
                             <h1 className="h1 mb-4" data-aos="fade-up">Get DaMa Token</h1>
                         </a>
                         <p className="text-xl text-white-100 mb-8" data-aos="fade-up" data-aos-delay="200">
@@ -88,7 +88,7 @@ export default function GetToken() {
                                     <path className="stroke-current text-white" d="M32 37.714A5.714 5.714 0 0037.714 32a5.714 5.714 0 005.715 5.714"></path>
                                     <path className="stroke-current text-white" d="M32 37.714a5.714 5.714 0 015.714 5.715 5.714 5.714 0 015.715-5.715M20.571 26.286a5.714 5.714 0 005.715-5.715A5.714 5.714 0 0032 26.286"></path>
                                     <path className="stroke-current text-white" d="M20.571 26.286A5.714 5.714 0 0126.286 32 5.714 5.714 0 0132 26.286"></path>
-                                    <path className="stroke-current text-blue-300" d="M21.714 40h4.572M24 37.714v4.572M37.714 24h4.572M40 21.714v4.572" stroke-linecap="square"></path>
+                                    <path className="stroke-current text-blue-300" d="M21.714 40h4.572M24 37.714v4.572M37.714 24h4.572M40 21.714v4.572" strokeLinecap="square"></path>
                                 </g>
                             </g>
                         </svg>
@@ -118,7 +118,7 @@ export default function GetToken() {
                         <svg className="w-16 h-16 p-1 -mt-1 mb-2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                             <g fill="none" fill-rule="evenodd">
                                 <rect className="fill-current text-zinc-800" width="64" height="64" rx="32"></rect>
-                                <g stroke-width="2" stroke-linecap="square">
+                                <g stroke-width="2" strokeLinecap="square">
                                     <path className="stroke-current text-white" d="M29.714 40.358l-4.777 2.51 1.349-7.865-5.715-5.57 7.898-1.147L32 21.13l3.531 7.155 7.898 1.147L40 32.775"></path>
                                     <path className="stroke-current text-blue-300" d="M44.571 43.429H34.286M44.571 37.714H34.286"></path>
                                 </g>
