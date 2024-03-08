@@ -20,15 +20,19 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link
-                  href="/signin"
-                  className="font-medium text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
-                >
-                  Sign in
+                  href="#gettoken" className="font-medium text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Get DaMa Token
                 </Link>
               </li>
               <li>
-                <Link href="/signup" className="btn-sm text-white bg-red-700 hover:bg-red-900 ml-3">
-                  Sign up
+                <Link
+                  href="#roadmap" className="font-medium text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Road Map
+                </Link>
+              </li>
+              <li>
+                <Link href="/app" className="btn-sm text-white bg-red-700 hover:bg-red-900 ml-3">
+                  Launch App
                 </Link>
               </li>
             </ul>
