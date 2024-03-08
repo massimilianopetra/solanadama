@@ -5,9 +5,7 @@ export default function GetToken() {
                 {/* Section header */}
                 <div className="py-12 md:py-14">
                     <div className="max-w-3xl mx-auto text-center pb-8 md:pb-10">
-                        <a id="gettoken">
-                            <h1 className="h1 mb-4" data-aos="fade-up">Get DaMa Token</h1>
-                        </a>
+                        <h1 id="gettoken" className="h1 mb-4" data-aos="fade-up">Get DaMa Token</h1>
                         <p className="text-xl text-white-100 mb-8" data-aos="fade-up" data-aos-delay="200">
                             Swap DaMa tokens and supports our project
                         </p>
