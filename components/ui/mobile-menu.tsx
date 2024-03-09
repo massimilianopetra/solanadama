@@ -61,8 +61,8 @@ export default function MobileMenu() {
       >
         <ul className="bg-gray-800 px-4 py-2">
           <li>
-            <Link href="#gettoken" className="flex font-medium w-full text-red-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
-              Get Token
+            <Link href="/swap" className="flex font-medium w-full text-red-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
+            Swap DaMa Token
             </Link>
           </li>
           <li>

@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
-export default function Header() {
+export default function HeaderApp() {
   return (
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -18,22 +19,11 @@ export default function Header() {
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
+
               <li>
-                <Link
-                  href="/swap" className="font-medium text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                  Swap DaMa Token
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#roadmap" className="font-medium text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                  Road Map
-                </Link>
-              </li>
-              <li>
-                <Link href="/app" className="btn-sm text-white bg-red-700 hover:bg-red-900 ml-3">
-                  Launch App
-                </Link>
+                <div>
+
+                </div>
               </li>
             </ul>
           </nav>

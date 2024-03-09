@@ -1,5 +1,6 @@
 import PageIllustration from '@/components/page-illustration'
 
+
 export default function AuthLayout({
   children,
 }: {
@@ -13,5 +14,6 @@ export default function AuthLayout({
       {children}
 
     </main>
+
   )
 }

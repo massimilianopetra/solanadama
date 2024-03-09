@@ -1,21 +1,22 @@
 export const metadata = {
   title: 'SolanaDama',
-  description: 'Page description',
+  description: 'SolanaDama Platoform',
 }
 
-import Hero from '@/components/hero'
+import Header from '@/components/ui/header'
+import Intro from '@/components/intro'
 import Features from '@/components/features'
 import Newsletter from '@/components/newsletter'
 import GetToken from '@/components/gettoken'
-import Testimonials from '@/components/testimonials'
+
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <Header />
+      <Intro />
       <Features />
       <GetToken />
-      {/* <Testimonials /> */}
       <Newsletter />
     </>
   )

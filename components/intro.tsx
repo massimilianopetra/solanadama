@@ -1,10 +1,10 @@
 
-export default function Hero() {
+export default function Intro() {
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
 
-        {/* Illustration behind hero content */}
+        {/* Background Vectorial */}
         <div className="absolute left-0 bottom-0 -ml-20 hidden lg:block pointer-events-none" aria-hidden="true" data-aos="fade-up" data-aos-delay="400">
           <svg className="max-w-full" width="564" height="552" viewBox="0 0 564 552" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -17,7 +17,7 @@ export default function Hero() {
           </svg>
         </div>
 
-        {/* Hero content */}
+        {/* Description  */}
         <div className="relative pt-32 pb-10 md:pt-40 md:pb-16">
 
           {/* Section header */}
