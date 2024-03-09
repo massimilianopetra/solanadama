@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 
 export default function HeaderApp() {
   return (
