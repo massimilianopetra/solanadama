@@ -1,19 +1,21 @@
+'use client'
+
+import { useEffect } from 'react'
 
 
-export const metadata = {
-  title: 'SolanaDama',
-  description: 'SolanaDama Platoform',
-}
-
+import { useWallet } from "@solana/wallet-adapter-react";
 import HeaderApp from '@/components/ui/headerapp'
-import UC from '@/components/uc'
+import Swap from '@/components/swap'
 
 
 export default function Home() {
+  const { wallets } = useWallet();
+
+  console.log(wallets);
   return (
     <>
       <HeaderApp />
-      <UC />
+      <Swap />
     </>
   )
 }

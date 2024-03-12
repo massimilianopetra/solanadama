@@ -2,7 +2,6 @@ import './css/style.css'
 
 import { Inter, Architects_Daughter } from 'next/font/google'
 
-
 import Footer from '@/components/ui/footer'
 
 const inter = Inter({
