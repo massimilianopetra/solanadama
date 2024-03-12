@@ -12,7 +12,7 @@ export default function GetToken() {
                                 Contract Address FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1
                             </a>
                             <br />
-                            <p className="text-white text-center mb-8">If you want to support our project or if you believe in what we are building you can either get our 
+                            <p className="text-white text-center mb-8">If you want to support our project and if you believe in what we are building you can either get our 
                                 utility token by directly connect to the <a href="/swap" className="text-gray-400 hover:text-white" target="_blank"> SolaDama Swap App </a> 
                                 or if you prefer follow the 3 steps listed below and obtain Dama token from the main DEX exchanges
                             </p>
