@@ -8,22 +8,24 @@ export default function Swap() {
 
 
   return (
-    <section className="relative">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+    <section>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
 
-          {/* Page header */}
-          <div className="max-w-3xl mx-auto justify-center pb-12 md:pb-20">
-            <h1 className="h1">SolanaDama Swap Tools</h1>
+        {/* Description  */}
+        <div className="relative pt-32 pb-10 md:pt-40 md:pb-16">
+
+          {/* Section header */}
+          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
+
+            <h1 className="h1 mb-4" data-aos="fade-up">Swap Tools</h1>
             <br />
- 
-            <div className="flex flex-col justify-between h-32 w-64">
-              <Wallets />
-            </div>
+            <Wallets />
           </div>
 
         </div>
+
       </div>
     </section>
+
   )
 }

@@ -1,20 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useMemo } from "react";
+import { ConnectionProvider, WalletProvider, } from "@solana/wallet-adapter-react";
+import { PhantomWalletAdapter, SolflareWalletAdapter, MathWalletAdapter, } from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
+
 
 import PageIllustration from '@/components/page-illustration'
 
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from "@solana/wallet-adapter-react";
-import { useMemo } from "react";
-import {
-  PhantomWalletAdapter,
-  SolflareWalletAdapter,
-  MathWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
 
 export default function AuthLayout({
   children,
@@ -36,8 +29,10 @@ export default function AuthLayout({
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
-        <PageIllustration />
-        {children}
+        <div className="flex flex-col min-h-screen overflow-hidden">
+          <PageIllustration />
+          {children}
+        </div>
       </WalletProvider>
     </ConnectionProvider>
 
