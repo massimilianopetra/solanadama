@@ -20,7 +20,7 @@ function launchJupiter() {
     window.Jupiter.init({
       displayMode: "integrated",
       integratedTargetId: "jupyter-terminal",
-      endpoint: "https://api.mainnet-beta.solana.com",
+      endpoint: "https://mainnet.helius-rpc.com/?api-key=2ebfd2f1-0659-4a66-9c6c-49a8a772dbe3",
       formProps: {
         fixedOutputMint: true,
         initialAmount: "1000000",
