@@ -23,7 +23,7 @@ export default function GetToken() {
                         {/* Get SOL */}
                         <div className="relative flex flex-col items-center p-6 bg-zinc-800 rounded-lg shadow">
                             <svg className="w-16 h-16 p-1 -mt-1 mb-2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
+                                <g fill="none" fillRule="evenodd">
                                     <rect className="fill-current text-zinc-800" width="64" height="64" rx="32"></rect>
                                     <g className="stroke-2">
                                         <path className="stroke-current text-blue-300" d="M34.514 35.429l2.057 2.285h8M20.571 26.286h5.715l2.057 2.285"></path>
@@ -40,7 +40,7 @@ export default function GetToken() {
                         {/* Get Phantom */}
                         <div className="relative flex flex-col items-center p-6 bg-zinc-800 rounded-lg shadow">
                             <svg className="w-16 h-16 p-1 -mt-1 mb-2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
+                                <g fill="none" fillRule="evenodd">
                                     <rect className="fill-current text-zinc-800" width="64" height="64" rx="32"></rect>
                                     <g className="stroke-2" transform="translate(19.429 20.571)">
                                         <circle className="stroke-current text-white" strokeLinecap="square" cx="12.571" cy="12.571" r="1.143"></circle>
@@ -59,7 +59,7 @@ export default function GetToken() {
                         {/* Swap Dama */}
                         <div className="relative flex flex-col items-center p-6 bg-zinc-800 rounded-lg shadow">
                             <svg className="w-16 h-16 p-1 -mt-1 mb-2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <g fill="none" fill-rule="evenodd">
+                                <g fill="none" fillRule="evenodd">
                                     <rect className="fill-current text-zinc-800" width="64" height="64" rx="32"></rect>
                                     <g className="stroke-2">
                                         <path className="stroke-current text-blue-300" d="M34.743 29.714L36.57 32 27.43 43.429H24M24 20.571h3.429l1.828 2.286"></path>

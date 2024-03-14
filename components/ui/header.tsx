@@ -31,7 +31,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="/dap" className="btn-sm rounded-lg text-white bg-red-700 hover:bg-red-900 ml-3">
+                <Link href="/dapp" className="btn-sm rounded-lg text-white bg-red-700 hover:bg-red-900 ml-3">
                   Launch App
                 </Link>
               </li>

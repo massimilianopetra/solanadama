@@ -4,6 +4,7 @@ export const metadata = {
 }
 
 import Wallets from '@/components/wallets'
+
 export default function Swap() {
 
 
@@ -19,7 +20,7 @@ export default function Swap() {
 
             <h1 className="h1 mb-4" data-aos="fade-up">Swap Tools</h1>
             <br />
-            <Wallets />
+
           </div>
 
         </div>
