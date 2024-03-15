@@ -1,0 +1,192 @@
+'use client';
+
+import { useWallet } from '@solana/wallet-adapter-react';
+import { VersionedTransaction, Connection } from '@solana/web3.js';
+import React, { useState, useEffect, useCallback } from 'react';
+
+const assets = [
+    { name: 'SOL', mint: 'So11111111111111111111111111111111111111112', decimals: 9 },
+    { name: 'USDC', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', decimals: 6 },
+];
+
+
+const debounce = <T extends unknown[]>(
+    func: (...args: T) => void,
+    wait: number
+) => {
+    let timeout: NodeJS.Timeout | undefined;
+
+    return (...args: T) => {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+export default function SwapForm() {
+    const [fromAsset, setFromAsset] = useState(assets[0]);
+    const toAsset = { name: 'DAMA', mint: 'FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1', decimals: 6 };
+    const [fromAmount, setFromAmount] = useState(0);
+    const [toAmount, setToAmount] = useState(0);
+    const [quoteResponse, setQuoteResponse] = useState(null);
+
+    const wallet = useWallet();
+
+    const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=2ebfd2f1-0659-4a66-9c6c-49a8a772dbe3');
+
+    const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log(`From Asset Change: ${event.target.value}`);
+        setFromAsset(
+            assets.find((asset) => asset.name === event.target.value) || assets[0]
+        );
+    };
+
+
+    const handleFromValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFromAmount(Number(event.target.value));
+    };
+
+    const debounceQuoteCall = useCallback(debounce(getQuote, 500), []);
+
+    useEffect(() => {
+        console.log(fromAsset);
+        debounceQuoteCall(fromAmount,fromAsset);
+    }, [fromAmount, fromAsset, debounceQuoteCall]);
+
+    async function getQuote(currentAmount: number,currentFromAsset: { name: string; mint: string; decimals: number}) {
+
+        console.log("getQuote");
+        console.log(`Amount: ${currentAmount}`);
+        console.log(`From ${currentFromAsset.name} ${currentFromAsset.mint}`);
+        console.log(`To ${toAsset.name} ${toAsset.mint}`);
+
+        if (isNaN(currentAmount) || currentAmount <= 0) {
+            console.error('Invalid fromAmount value:', currentAmount);
+            return;
+        }
+
+        /*  https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1&amount=10000000 */
+        const quote = await (
+            await fetch(
+                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${toAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippage=5.0`
+            )
+        ).json();
+
+        if (quote && quote.outAmount) {
+            const outAmountNumber =
+                Number(quote.outAmount) / Math.pow(10, toAsset.decimals);
+            setToAmount(outAmountNumber);
+        }
+
+        setQuoteResponse(quote);
+    }
+
+    async function signAndSendTransaction() {
+
+        console.log("signAndSendTransaction");
+        console.log(quoteResponse);
+        console.log(`Address ${wallet.publicKey?.toString()}`)
+
+        if (!wallet.connected || !wallet.signTransaction) {
+            console.error(
+                'Wallet is not connected or does not support signing transactions'
+            );
+            return;
+        }
+
+        // get serialized transactions for the swap
+        const { swapTransaction } = await (
+            await fetch('https://quote-api.jup.ag/v6/swap', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    quoteResponse,
+                    userPublicKey: wallet.publicKey?.toString(),
+                    wrapAndUnwrapSol: true,
+                    // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
+                    // feeAccount: "fee_account_public_key"
+                }),
+            })
+        ).json();
+
+        try {
+            const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
+            const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+            const signedTransaction = await wallet.signTransaction(transaction);
+
+            const rawTransaction = signedTransaction.serialize();
+            const txid = await connection.sendRawTransaction(rawTransaction, {
+                skipPreflight: true,
+                maxRetries: 2,
+            });
+
+            const latestBlockHash = await connection.getLatestBlockhash();
+            await connection.confirmTransaction({
+                blockhash: latestBlockHash.blockhash,
+                lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+                signature: txid
+            }, 'confirmed');
+
+            console.log(`https://solscan.io/tx/${txid}`);
+
+        } catch (error) {
+            console.error('Error signing or sending the transaction:', error);
+        }
+    }
+
+    return (
+        <div className="flex flex-col items-center justify-center">
+            <div className="w-80 bg-black rounded-xl p-6 border border-red-600">
+                <div>
+                    <div className="mb-3 font-bold text-xl">You swap</div>
+                    <input
+                        type="number"
+                        value={fromAmount}
+                        onChange={handleFromValueChange}
+                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-right"
+                    />
+                    <select
+                        value={fromAsset.name}
+                        onChange={handleFromAssetChange}
+                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5"
+                    >
+                        {assets.map((asset) => (
+                            <option key={asset.mint} value={asset.name}>
+                                {asset.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <div className="mb-3 font-bold text-xl ">You receive</div>
+                    <input
+                        type="number"
+                        value={toAmount}
+                        // onChange={(e) => setToAmount(Number(e.target.value))}
+                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-right"
+                        readOnly
+                    />
+                    <input
+                        value={toAsset.name}
+                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5"
+                        readOnly
+                    >
+                    </input>
+                </div>
+                <button
+                    onClick={signAndSendTransaction}
+                    className=" bg-red-700 hover:bg-red-900 rounded-xl p-3 w-1/2"
+                    disabled={toAsset.mint === fromAsset.mint}
+                >
+                    Swap
+                </button>
+            </div>
+        </div>
+    );
+}

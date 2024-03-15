@@ -9,7 +9,7 @@ export default function Wallets() {
         if (wallets.filter((w) => w.readyState === "Installed").length > 0) {
             return (
                 wallets.filter((wallet) => wallet.readyState === "Installed").map((wallet) => (
-                    
+
                     <div className="flex justify-center p-1">
                         <button
                             type="button"
@@ -19,25 +19,31 @@ export default function Wallets() {
                             <span>Connect {wallet.adapter.name} Wallet</span>
                         </button>
                     </div>
-                
+
                 ))
 
             );
         } else {
-            return (<p>No wallet found. Please download a supported Solana wallet</p>);
+            return (
+                <div>
+                    <p>No wallet found. Please download a supported Solana wallet</p>
+                </div>
+            );
         }
 
     }
     else {
         console.log("{publicKey.toBase58()}")
         return (
-            <button
-                type="button"
-                className="btn-sm rounded-lg text-white bg-green-700 hover:bg-green-900 ml-3"
-                onClick={disconnect}
-            >
-                <span>Disconnect ... {publicKey.toBase58().substring(publicKey.toBase58().length - 5)}</span>
-            </button>
+            <div>
+                <button
+                    type="button"
+                    className="btn-sm rounded-lg text-white bg-green-700 hover:bg-green-900 ml-3"
+                    onClick={disconnect}
+                >
+                    <span>Disconnect ... {publicKey.toBase58().substring(publicKey.toBase58().length - 5)}</span>
+                </button>
+            </div>
         );
 
     }
