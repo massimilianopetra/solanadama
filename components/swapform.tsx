@@ -54,10 +54,10 @@ export default function SwapForm() {
 
     useEffect(() => {
         console.log(fromAsset);
-        debounceQuoteCall(fromAmount,fromAsset);
+        debounceQuoteCall(fromAmount, fromAsset);
     }, [fromAmount, fromAsset, debounceQuoteCall]);
 
-    async function getQuote(currentAmount: number,currentFromAsset: { name: string; mint: string; decimals: number}) {
+    async function getQuote(currentAmount: number, currentFromAsset: { name: string; mint: string; decimals: number }) {
 
         console.log("getQuote");
         console.log(`Amount: ${currentAmount}`);
@@ -154,7 +154,7 @@ export default function SwapForm() {
                     <select
                         value={fromAsset.name}
                         onChange={handleFromAssetChange}
-                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5"
+                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-left"
                     >
                         {assets.map((asset) => (
                             <option key={asset.mint} value={asset.name}>
@@ -172,12 +172,14 @@ export default function SwapForm() {
                         className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-right"
                         readOnly
                     />
-                    <input
-                        value={toAsset.name}
-                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5"
-                        readOnly
-                    >
-                    </input>
+                    <div>
+                        <input
+                            value={toAsset.name}
+                            className="bg-gray-700 text-lg mb-3 rounded-xl text-white text-right p-3 border-0 w-4/5 bg-[url('/images/DAMA.png')] bg-left bg-no-repeat" 
+                            readOnly
+                        >
+                        </input>
+                    </div>
                 </div>
                 <button
                     onClick={signAndSendTransaction}
