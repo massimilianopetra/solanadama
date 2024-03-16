@@ -1,11 +1,32 @@
 'use client';
 
+import React, {useEffect} from 'react';
+
 function switchTheme() {
     console.log('theme')
     document.documentElement.classList.toggle('dark')
-  };
+    if (document.documentElement.classList.contains('dark')) {
+        console.log('DARK');
+        localStorage.setItem('dark-mode', 'true');
+    } else {
+        console.log('LIGHT');
+        localStorage.setItem('dark-mode', 'false');
+    }
+};
+
+function checkTheme() {
+    if (localStorage.getItem('dark-mode') === 'true') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+};
 
 export default function ToggleTheme() {
+    useEffect(() => {
+        // Perform action
+        checkTheme();
+      }, [])
     return (
         <button title="Toggle Theme" onClick={switchTheme} className="
         w-12 

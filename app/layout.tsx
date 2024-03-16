@@ -22,6 +22,7 @@ export const metadata = {
   description: 'The Reliability CryptoMunity Platform powered by Dama Token',
 }
 
+
 export default function RootLayout({
   children,
 }: {
@@ -29,10 +30,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      
+
       <body className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased dark:bg-gray-900 dark:text-gray-200 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden">
-          
+
           {children}
           <Footer />
         </div>
@@ -42,4 +43,3 @@ export default function RootLayout({
 }
 
 /* <script src="https://terminal.jup.ag/main-v2.js" /> */
- 
