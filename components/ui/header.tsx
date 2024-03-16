@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
 
+import ToggleTheme from "@/components/ui/toggletheme"
+
 export default function Header() {
   return (
     <header className="absolute w-full z-30">
@@ -29,6 +31,9 @@ export default function Header() {
                   href="#roadmap" className="font-medium rounded-lg text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Road Map
                 </Link>
+              </li>
+              <li>
+                <ToggleTheme />
               </li>
               <li>
                 <Link href="/dapp" className="btn-sm rounded-lg text-white bg-red-700 hover:bg-red-900 ml-3">

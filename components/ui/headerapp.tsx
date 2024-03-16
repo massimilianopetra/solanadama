@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
 
+import ToggleTheme from "@/components/ui/toggletheme"
+
 export default function HeaderApp() {
   return (
     <header className="absolute w-full z-30">
@@ -19,11 +21,11 @@ export default function HeaderApp() {
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
 
-              <li>
-                <div>
 
-                </div>
+              <li>
+                <ToggleTheme />
               </li>
+
             </ul>
           </nav>
 

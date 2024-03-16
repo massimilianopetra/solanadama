@@ -142,19 +142,19 @@ export default function SwapForm() {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="w-80 bg-black rounded-xl p-6 border border-red-600">
+            <div className="w-80 bg-gray-200 dark:bg-gray-800 rounded-xl p-6 border border-red-600">
                 <div>
                     <div className="mb-3 font-bold text-xl">You swap</div>
                     <input
                         type="number"
                         value={fromAmount}
                         onChange={handleFromValueChange}
-                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-right"
+                        className="dark:bg-gray-700 text-lg mb-3 rounded-xl dark:text-white p-3 border-0 w-4/5 text-right"
                     />
                     <select
                         value={fromAsset.name}
                         onChange={handleFromAssetChange}
-                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-left"
+                        className="dark:bg-gray-700 text-lg mb-3 rounded-xl dark:text-white p-3 border-0 w-4/5 text-left"
                     >
                         {assets.map((asset) => (
                             <option key={asset.mint} value={asset.name}>
@@ -169,13 +169,13 @@ export default function SwapForm() {
                         type="number"
                         value={toAmount}
                         // onChange={(e) => setToAmount(Number(e.target.value))}
-                        className="bg-gray-700 text-lg mb-3 rounded-xl text-white p-3 border-0 w-4/5 text-right"
+                        className="dark:bg-gray-700 text-lg mb-3 rounded-xl dark:text-white p-3 border-0 w-4/5 text-right"
                         readOnly
                     />
                     <div>
                         <input
                             value={toAsset.name}
-                            className="bg-gray-700 text-lg mb-3 rounded-xl text-white text-right p-3 border-0 w-4/5 bg-[url('/images/DAMA.png')] bg-left bg-no-repeat" 
+                            className="dark:bg-gray-700 text-lg mb-3 rounded-xl dark:text-white text-right p-3 border-0 w-4/5 bg-[url('/images/DAMA.png')] bg-left bg-no-repeat" 
                             readOnly
                         >
                         </input>
@@ -183,7 +183,7 @@ export default function SwapForm() {
                 </div>
                 <button
                     onClick={signAndSendTransaction}
-                    className=" bg-red-700 hover:bg-red-900 rounded-xl p-3 w-1/2"
+                    className="text-white bg-red-700 hover:bg-red-900 rounded-xl p-3 w-1/2"
                     disabled={toAsset.mint === fromAsset.mint}
                 >
                     Swap

@@ -28,12 +28,12 @@ export default function Intro() {
               The Reliability CryptoMunity Platform powered by Dama Token
             </p>
 
-            <p className="text-justify text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+            <p className="text-justify text-xl text-gray-500 dark:text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
               SolanaDama is a cutting-edge platform designed to assess the reliability of new cryptocurrency tokens.
               Offering a set of versatile tools, we provide transparent and reliable evaluations of tokens,
               enabling investors to make informed decisions and reducing the risk of falling victim to fraudulent schemes.
             </p>
-            <p className="text-justify text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+            <p className="text-justify text-xl text-gray-500 dark:text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
               
               Furthermore SolanDama serves as a bridge between investors and emerging crypto ventures, facilitating seamless engagement and investment opportunities in the
               dynamic world of cryptocurrency. Leveraging with our tools we offers a secure and efficient environment
