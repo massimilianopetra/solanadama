@@ -41,16 +41,16 @@ export default function ToggleTheme() {
         ease-in
         focus:outline-none 
         focus:ring-2 
-        focus:ring-red-700 
-        dark:focus:ring-red-600 
+        focus:ring-blue-700 
+        dark:focus:ring-blue-600 
         focus:border-transparent
       ">
             <div id="toggle" className="
             rounded-full 
             w-4 
             h-4 
-            bg-red-600 
-            dark:bg-red-500 
+            bg-blue-600 
+            dark:bg-blue-500 
             relative 
             ml-0 
             dark:ml-6 

@@ -8,12 +8,12 @@ export default function GetToken() {
                         <div className="max-w-3xl mx-auto text-center pb-8 md:pb-10">
                             <h1 id="gettoken" className="h1 mb-4" data-aos="fade-up">Get DaMa Token</h1>
 
-                            <a href="https://solscan.io/token/FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1" className="text-gray-400 hover:text-red-500" target="_blank">
+                            <a href="https://solscan.io/token/FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1" className="text-gray-400 hover:text-blue-500" target="_blank">
                                 Contract Address FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1
                             </a>
                             <br />
                             <p className="text-gray-500 dark:text-gray-200 text-center mb-8">If you want to support our project and if you believe in what we are building you can either get our
-                                utility token by directly connect to the <a href="/swap" className="text-gray-400 hover:text-red-500" target="_blank"> SolaDama Swap App </a>
+                                utility token by directly connect to the <a href="/swap" className="text-gray-400 hover:text-blue-500" target="_blank"> SolaDama Swap App </a>
                                 or if you prefer follow the 3 steps listed below and obtain Dama token from the main DEX exchanges
                             </p>
                         </div>

@@ -13,7 +13,7 @@ export default function Wallets() {
                     <div className="flex justify-center p-1">
                         <button
                             type="button"
-                            className="btn-sm rounded-lg text-white bg-red-700 hover:bg-red-900 ml-3"
+                            className="btn-sm rounded-lg text-white bg-blue-700 hover:bg-blue-900 ml-3"
                             onClick={() => select(wallet.adapter.name)}
                         >
                             <span>Connect {wallet.adapter.name} Wallet</span>

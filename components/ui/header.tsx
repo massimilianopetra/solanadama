@@ -22,13 +22,13 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link
-                  href="/swap" className="font-medium rounded-lg text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  href="/swap" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Swap DaMa Token
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#roadmap" className="font-medium rounded-lg text-red-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  href="#roadmap" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Road Map
                 </Link>
               </li>
@@ -36,7 +36,7 @@ export default function Header() {
                 <ToggleTheme />
               </li>
               <li>
-                <Link href="/dapp" className="btn-sm rounded-lg text-white bg-red-700 hover:bg-red-900 ml-3">
+                <Link href="/dapp" className="btn-sm rounded-lg text-white bg-blue-700 hover:bg-blue-900 ml-3">
                   Launch App
                 </Link>
               </li>
