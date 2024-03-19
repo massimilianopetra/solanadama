@@ -20,7 +20,7 @@ export default function UC() {
               Dear Solanadamer,
               we are reaching out to inform you about a recent surge in transactions on our swap app, which has prompted us to initiate a comprehensive revision process. This revision aims to enhance the stability and efficiency of our platform, ensuring a seamless experience for all users.
 
-              During this revision period, we advise all users interested in purchasing DaMa tokens to utilize the official Swap Jupyter website. While DaMa tokens are currently accessible through the extended "All" list, we are actively working to list the coin separately for easier access and navigation.
+              During this revision period, we advise all users interested in purchasing DaMa tokens to utilize the official Swap JupIter website. While DaMa tokens are currently accessible through the extended "All" list, we are actively working to list the coin separately for easier access and navigation.
 
               We apologize for any inconvenience this may cause and appreciate your patience and understanding. Rest assured, we are committed to providing you with the best service possible.
 
