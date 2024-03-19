@@ -84,7 +84,7 @@ export default function SwapForm() {
         /*  https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1&amount=10000000 */
         const quote = await (
             await fetch(
-                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${currentToAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippage=500`
+                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${currentToAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippageBps=500`
             )
         ).json();
 
