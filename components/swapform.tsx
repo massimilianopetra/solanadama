@@ -84,7 +84,7 @@ export default function SwapForm() {
         /*  https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1&amount=10000000 */
         const quote = await (
             await fetch(
-                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${currentToAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippageBps=500`
+                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${currentToAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippageBps=1000`
             )
         ).json();
 
@@ -123,6 +123,7 @@ export default function SwapForm() {
             return;
         }
 
+        console.log("aa")
         // get serialized transactions for the swap
         const { swapTransaction } = await (
             await fetch('https://quote-api.jup.ag/v6/swap', {
@@ -140,19 +141,30 @@ export default function SwapForm() {
             })
         ).json();
 
+        console.log("bb")
         try {
+            // deserialize the transaction
             const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
             const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
+            console.log("cc")
+            // sign the transaction
             const signedTransaction = await wallet.signTransaction(transaction);
+            console.log("dd")
 
+            // Execute the transaction
             const rawTransaction = signedTransaction.serialize();
             const txid = await connection.sendRawTransaction(rawTransaction, {
                 skipPreflight: true,
                 maxRetries: 2,
             });
+            console.log(`https://solscan.io/tx/${txid}`);
 
+            console.log("ee")
+
+            // Confirm transaction
             const latestBlockHash = await connection.getLatestBlockhash();
-            console.log("A");
+            console.log("ff");
+
             console.log(latestBlockHash);
             setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
             await connection.confirmTransaction({
@@ -161,7 +173,9 @@ export default function SwapForm() {
                 signature: txid
             }, 'confirmed');
 
-            console.log(`https://solscan.io/tx/${txid}`);
+            console.log("gg");
+
+            
             setMessage({ message: "Transaction success", color: "rgb(21 128 61)", timeout: 10000 });
 
         } catch (error) {
