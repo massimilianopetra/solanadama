@@ -1,1 +1,1 @@
-# Official Solana Dama Project
+# Official Solanadama FE Project

@@ -13,10 +13,11 @@ function  DynamicMessage ({ message, color, timeout }:DynamicMessageProps) {
     useEffect(() => {
         if (message) {
             setShowMessage(true);
+            console.log("Timeout: "+timeout)
             if (timeout > 0) {
                 const t = setTimeout(() => {
                     setShowMessage(false);
-                }, 3000);
+                }, timeout);
                 return () => clearTimeout(t);
             }
         } else {

@@ -30,20 +30,22 @@ export default function Home() {
             </div>
             <br />
             <div className='text-justify'>
-            <p>
-              Dear SolanaDama Users,
-            </p>
-            <br />
-            <p>
-              To receive the airdrop of our token, please ensure that you have opened your X repost of solanadama on another page. 
-              Then, in the designated form, provide your Solana wallet address along with the link to the reposted tweet. 
-              The first 1000 users who have retweeted will be elegible to receive DaMa tokens.
-            </p>
-            <br />
-            <p className='text-center'>
-              Thank you for your participation!
-            </p>
-            <br />
+              <p>
+                Dear SolanaDama Users,
+              </p>
+              <br />
+              <p>
+                To receive the airdrop of our token, please enter the publicaddress of your Solana wallet.
+                You will immediately find out if you are among the first 1000 users who have retweeted and are entitled to receive DaMa tokens!
+              </p>
+              <p>
+
+              </p>
+              <br />
+              <p className='text-center'>
+
+              </p>
+              <br />
             </div>
 
             <AirdropForm />
