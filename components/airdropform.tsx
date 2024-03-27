@@ -25,16 +25,25 @@ export default function AirdropForm() {
 
         console.log('ADRESS: ', address);
         console.log('URL: ', url);
-        setMessage({ message: "Subscribing airdrop ...", color: "rgb(150 150 150)", timeout: -1 });
-        var response = ""
 
+        setMessage({ message: "Subscribing airdrop ...", color: "rgb(150 150 150)", timeout: -1 });
+
+        var response = {status:"",value:""}
         try {
             response = await (
-                await fetch('https://damasrv.ddns.net:13144')
+                await fetch('http://damasrv.ddns.net:13144/subscribeairdrop', {
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({"address": address,"url": url})
+                })
             ).json();
         } catch {
-            response = "ERROR"
+            response = {status:"error",value:"error"}
         }
+
         setCheckFailure(false);
         setFormSubsription(false);
         setThankyou(true);
@@ -50,8 +59,27 @@ export default function AirdropForm() {
         const address = String(formData.get("address"));
         console.log('ADRESS: ', address);
 
-        setMessage({ message: "Check elegibility ...", color: "rgb(150 150 150)", timeout: 10000 });
-        if (false) {
+        setMessage({ message: "Check elegibility ...", color: "rgb(150 150 150)", timeout: -1 });
+
+        var response = {status:"",value:""}
+        try {
+            response = await (
+                await fetch('http://damasrv.ddns.net:13144/checkairdrop', {
+                    headers: {
+                      'Accept': 'application/json',
+                      'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({"address": address})
+                })
+            ).json();
+        } catch {
+            response = {status:"error",value:"error"}
+        }
+        setMessage({ message: "      ", color: "rgb(150 150 150)", timeout: 1 });
+
+        
+        if (response.value == "ok") {
             setFormCheck(false);
             setCheckSuccess(true);
         }
