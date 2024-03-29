@@ -22,6 +22,12 @@ export default function Header() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link
+                  href="/airdrop" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Subscribe Airdrop
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/swap" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Swap DaMa Token
                 </Link>

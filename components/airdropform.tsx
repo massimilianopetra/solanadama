@@ -1,9 +1,8 @@
 'use client';
 
 
-import React, { useState, useEffect, useCallback, FormEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import DynamicMessage from '@/components/dynamicmessage';
-
 
 
 
@@ -13,6 +12,7 @@ export default function AirdropForm() {
     const [showFormCheck, setFormCheck] = useState(true);
     const [showFormSubsription, setFormSubsription] = useState(false);
     const [showCheckSuccess, setCheckSuccess] = useState(false);
+    const [showCheckFull, setCheckFull] = useState(false);
     const [showCheckFailure, setCheckFailure] = useState(false);
     const [showThankyou, setThankyou] = useState(false);
 
@@ -28,20 +28,21 @@ export default function AirdropForm() {
 
         setMessage({ message: "Subscribing airdrop ...", color: "rgb(150 150 150)", timeout: -1 });
 
-        var response = {status:"",value:""}
+        var response = {outcome:"ERROR"}
         try {
             response = await (
-                await fetch('http://damasrv.ddns.net:13144/subscribeairdrop', {
+                await fetch('https://damasrv.fixip.org:13144/enrol', {
                     headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json'
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
                     },
                     method: "POST",
-                    body: JSON.stringify({"address": address,"url": url})
+                    body: JSON.stringify({ "address": address, "url": url })
+
                 })
             ).json();
         } catch {
-            response = {status:"error",value:"error"}
+            response = {outcome:"ERROR"}
         }
 
         setCheckFailure(false);
@@ -61,32 +62,35 @@ export default function AirdropForm() {
 
         setMessage({ message: "Check elegibility ...", color: "rgb(150 150 150)", timeout: -1 });
 
-        var response = {status:"",value:""}
+        var response = { outcome:"" }
         try {
             response = await (
-                await fetch('http://damasrv.ddns.net:13144/checkairdrop', {
+                await fetch('https://damasrv.fixip.org:13144/check', {
                     headers: {
-                      'Accept': 'application/json',
-                      'Content-Type': 'application/json'
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
                     },
                     method: "POST",
-                    body: JSON.stringify({"address": address})
+                    body: JSON.stringify({ "address": address })
                 })
             ).json();
         } catch {
-            response = {status:"error",value:"error"}
+            response = {outcome:"ERROR"}
         }
         setMessage({ message: "      ", color: "rgb(150 150 150)", timeout: 1 });
 
-        
-        if (response.value == "ok") {
+
+        if (response.outcome == "WIN") {
             setFormCheck(false);
             setCheckSuccess(true);
         }
-        else {
+        else if (response.outcome == "CAN") {
             setFormCheck(false);
             setCheckFailure(true);
             setFormSubsription(true);
+        } else {
+            setFormCheck(false);
+            setCheckFull(true);
         }
     }
 
@@ -146,6 +150,13 @@ export default function AirdropForm() {
                         Congratulations! You've won 1000 DaMa tokens!
                     </p>
                 )}
+
+                {showCheckFull && (
+                    <p>
+                        Sorry DaMa Airdrop has been completed, stay tuned for next events!
+                    </p>
+                )}
+
 
                 {showCheckFailure && (
                     <p>
