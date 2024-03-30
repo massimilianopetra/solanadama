@@ -14,6 +14,7 @@ export default function AirdropForm() {
     const [showCheckSuccess, setCheckSuccess] = useState(false);
     const [showCheckFull, setCheckFull] = useState(false);
     const [showCheckFailure, setCheckFailure] = useState(false);
+    const [showDuplicate, setDuplicate] = useState(false);
     const [showThankyou, setThankyou] = useState(false);
 
     async function subscribeAirdrop(e: FormEvent<HTMLFormElement>) {
@@ -28,7 +29,7 @@ export default function AirdropForm() {
 
         setMessage({ message: "Subscribing airdrop ...", color: "rgb(150 150 150)", timeout: -1 });
 
-        var response = {outcome:"ERROR"}
+        var response = { outcome: "ERROR" }
         try {
             response = await (
                 await fetch('https://damasrv.fixip.org:13144/enrol', {
@@ -42,13 +43,19 @@ export default function AirdropForm() {
                 })
             ).json();
         } catch {
-            response = {outcome:"ERROR"}
+            response = { outcome: "ERROR" }
         }
 
         setCheckFailure(false);
         setFormSubsription(false);
-        setThankyou(true);
-        setMessage({ message: "Subscribing airdrop completed", color: "rgb(0 150 0)", timeout: 5000 });
+        if (response.outcome == "ERROR" || response.outcome == "KO") {
+            setDuplicate(true);
+        } else {
+            setCheckSuccess(true);
+        }
+
+
+        setMessage({ message: " ", color: "rgb(150 150 150)", timeout: 1 });
 
         console.log(response);
 
@@ -62,7 +69,7 @@ export default function AirdropForm() {
 
         setMessage({ message: "Check elegibility ...", color: "rgb(150 150 150)", timeout: -1 });
 
-        var response = { outcome:"" }
+        var response = { outcome: "" }
         try {
             response = await (
                 await fetch('https://damasrv.fixip.org:13144/check', {
@@ -75,7 +82,7 @@ export default function AirdropForm() {
                 })
             ).json();
         } catch {
-            response = {outcome:"ERROR"}
+            response = { outcome: "ERROR" }
         }
         setMessage({ message: "      ", color: "rgb(150 150 150)", timeout: 1 });
 
@@ -146,15 +153,15 @@ export default function AirdropForm() {
                         </div>
                     </div>)}
                 {showCheckSuccess && (
-                    <p>
+                    <h1 className="text-red-700 h1 mb-4" data-aos="fade-up">
                         Congratulations! You've won 1000 DaMa tokens!
-                    </p>
+                    </h1>
                 )}
 
                 {showCheckFull && (
-                    <p>
-                        Sorry DaMa Airdrop has been completed, stay tuned for next events!
-                    </p>
+                    <h2 className='h2 mb-1'>
+                        What a pity you're not among the top 1000! Don't despair, there will be other opportunities, keep following us!
+                    </h2>
                 )}
 
 
@@ -162,6 +169,12 @@ export default function AirdropForm() {
                     <p>
                         Please input your Solana wallet address and the link to your reposted tweet in the form provided
                     </p>
+                )}
+
+                {showDuplicate && (
+                    <h2 className='h2 mb-1'>
+                        We're sorry but your subscription failed: you entered a duplicate address
+                    </h2>
                 )}
 
                 {/* form subscription */}
