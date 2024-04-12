@@ -40,9 +40,12 @@ export default function SwapForm() {
 
     const wallet = useWallet();
 
-    // const connection = new Connection('https://mainnet.helius-rpc.com/?api-key='+process.env.HELIUSKEY);
-    const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/'+process.env.ALKEMYKEY);
+    const connection = new Connection('https://mainnet.helius-rpc.com/?api-key='+process.env.NEXT_PUBLIC_HELIUSKEY);
+    //const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/'+process.env.NEXT_PUBLIC_ALKEMYKEY);
 
+    /*console.info("******************")
+    console.info(process.env.NEXT_PUBLIC_ALKEMYKEY)
+    console.info("-----------------")*/
 
     const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(`From Asset Change: ${event.target.value}`);
