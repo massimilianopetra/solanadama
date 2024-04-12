@@ -151,10 +151,9 @@ export default function SwapForm() {
             // deserialize the transaction
             const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
             const transaction = VersionedTransaction.deserialize(swapTransactionBuf);
-            console.log("cc")
+
             // sign the transaction
             const signedTransaction = await wallet.signTransaction(transaction);
-            console.log("dd")
 
             // Execute the transaction
             const rawTransaction = signedTransaction.serialize();
@@ -164,11 +163,8 @@ export default function SwapForm() {
             });
             console.log(`https://solscan.io/tx/${txid}`);
 
-            console.log("ee")
-
             // Confirm transaction
             const latestBlockHash = await connection.getLatestBlockhash();
-            console.log("ff");
 
             console.log(latestBlockHash);
             setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
@@ -178,9 +174,6 @@ export default function SwapForm() {
                 signature: txid
             }, 'confirmed');
 
-            console.log("gg");
-
-            
             setMessage({ message: "Transaction success", color: "rgb(21 128 61)", timeout: 10000 });
 
         } catch (error) {
