@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'SolanaDama',
-  description: 'SolanaDama Platoform',
+  description: 'SolanaDama Platform',
 }
 
 import HeaderApp from '@/components/ui/headerapp'
