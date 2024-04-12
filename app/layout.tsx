@@ -32,18 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-9YPL18JM3J"></Script>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-BQCQY9SJQL"></Script>
         <Script id='google-analytics'>
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-9YPL18JM3J');
+            gtag('config', 'G-BQCQY9SJQL');
           `
             }
         </Script>
-
       </head>
       <body className={`${inter.variable} ${architects_daughter.variable} font-inter antialiased dark:bg-gray-900 dark:text-gray-200 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden">
