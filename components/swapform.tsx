@@ -140,6 +140,7 @@ export default function SwapForm() {
                     quoteResponse,
                     userPublicKey: wallet.publicKey?.toString(),
                     wrapAndUnwrapSol: true,
+                    prioritizationFeeLamports: 10000,
                     // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
                     // feeAccount: "fee_account_public_key"
                 }),
