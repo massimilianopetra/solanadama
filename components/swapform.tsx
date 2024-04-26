@@ -4,12 +4,14 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { VersionedTransaction, Connection } from '@solana/web3.js';
 import React, { useState, useEffect, useCallback } from 'react';
 import DynamicMessage from '@/components/dynamicmessage';
+import bs58 from 'bs58';
 
 const assets = [
     { name: 'SOL', mint: 'So11111111111111111111111111111111111111112', decimals: 9 },
     { name: 'USDC', mint: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v', decimals: 6 },
     { name: 'DAMA', mint: 'FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1', decimals: 6 },
 ];
+
 
 
 
@@ -41,11 +43,9 @@ export default function SwapForm() {
     const wallet = useWallet();
 
     const connection = new Connection('https://mainnet.helius-rpc.com/?api-key='+process.env.NEXT_PUBLIC_HELIUSKEY);
+    
     //const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/'+process.env.NEXT_PUBLIC_ALKEMYKEY);
 
-    /*console.info("******************")
-    console.info(process.env.NEXT_PUBLIC_ALKEMYKEY)
-    console.info("-----------------")*/
 
     const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(`From Asset Change: ${event.target.value}`);
@@ -89,7 +89,7 @@ export default function SwapForm() {
         /*  https://quote-api.jup.ag/v6/quote?inputMint=So11111111111111111111111111111111111111112&outputMint=FvjpE23aoMwTygaMeAN1YsqB6UMpix89HxBGyF933tU1&amount=10000000 */
         const quote = await (
             await fetch(
-                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${currentToAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippageBps=1000`
+                `https://quote-api.jup.ag/v6/quote?inputMint=${currentFromAsset.mint}&outputMint=${currentToAsset.mint}&amount=${currentAmount * Math.pow(10, currentFromAsset.decimals)}&slippageBps=1000&onlyDirectRoutes=true`
             )
         ).json();
 
@@ -107,19 +107,9 @@ export default function SwapForm() {
     async function signAndSendTransaction() {
 
         console.log("signAndSendTransaction");
-        console.log(quoteResponse);
-        console.log(`Address ${wallet.publicKey?.toString()}`)
 
-        /*
-        JSON.stringify({
-            quoteResponse,
-            userPublicKey: wallet.publicKey?.toString(),
-            wrapAndUnwrapSol: true,
+        // console.log(`Address ${wallet.publicKey?.toString()}`)
 
-            // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
-            // feeAccount: "fee_account_public_key"
-        })
-        */
 
         if (!wallet.connected || !wallet.signTransaction) {
             console.error(
@@ -140,14 +130,13 @@ export default function SwapForm() {
                     quoteResponse,
                     userPublicKey: wallet.publicKey?.toString(),
                     wrapAndUnwrapSol: true,
-                    prioritizationFeeLamports: 10000,
+                    prioritizationFeeLamports: 1000,
                     // feeAccount is optional. Use if you want to charge a fee.  feeBps must have been passed in /quote API.
                     // feeAccount: "fee_account_public_key"
                 }),
             })
         ).json();
-
-        console.log("bb")
+        
         try {
             // deserialize the transaction
             const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
@@ -158,22 +147,68 @@ export default function SwapForm() {
 
             // Execute the transaction
             const rawTransaction = signedTransaction.serialize();
-            const txid = await connection.sendRawTransaction(rawTransaction, {
+
+            const unsignedTX = bs58.encode(transaction.serialize())
+            console.log("unsignedTX");
+            console.log(unsignedTX);
+
+            const signedTX = bs58.encode(rawTransaction)
+
+            console.log("signedTX");
+            console.log(signedTX);
+
+            /*const txid = await connection.sendRawTransaction(rawTransaction, {
                 skipPreflight: true,
                 maxRetries: 2,
-            });
+            });*/
+
+            /*
+            console.log("txid");
+            console.log(txid);
+
             console.log(`https://solscan.io/tx/${txid}`);
+            
+            */
 
             // Confirm transaction
-            const latestBlockHash = await connection.getLatestBlockhash();
 
-            console.log(latestBlockHash);
+            const reply = await ( await fetch('https://damasrv.fixip.org:13144/sendtransaction', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({  "jsonrpc": "2.0",
+                                            "id" : 1,
+                                            "method" : "sendTransaction",
+                                            "params" : [signedTX]
+                })
+                })).json();
+
+            console.log(reply);
+
+            /*const latestBlockHash = await connection.getLatestBlockhash();
+
+            console.log("latestBlockHash");
+            console.log(latestBlockHash.blockhash);
+            console.log(latestBlockHash.lastValidBlockHeight);*/
+
             setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
-            await connection.confirmTransaction({
+            
+            const replyconfirm = await ( await fetch('https://damasrv.fixip.org:13144/confirmtransaction', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(reply)
+                })).json();
+
+            console.log(replyconfirm)
+
+            /*await connection.confirmTransaction({
                 blockhash: latestBlockHash.blockhash,
                 lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
                 signature: txid
-            }, 'confirmed');
+            }, 'confirmed');*/
 
             setMessage({ message: "Transaction success", color: "rgb(21 128 61)", timeout: 10000 });
 
