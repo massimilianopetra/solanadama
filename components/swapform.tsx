@@ -148,29 +148,16 @@ export default function SwapForm() {
             // Execute the transaction
             const rawTransaction = signedTransaction.serialize();
 
-            const unsignedTX = bs58.encode(transaction.serialize())
+            /*const unsignedTX = bs58.encode(transaction.serialize())
             console.log("unsignedTX");
-            console.log(unsignedTX);
+            console.log(unsignedTX);*/
 
             const signedTX = bs58.encode(rawTransaction)
 
             console.log("signedTX");
             console.log(signedTX);
 
-            /*const txid = await connection.sendRawTransaction(rawTransaction, {
-                skipPreflight: true,
-                maxRetries: 2,
-            });*/
-
-            /*
-            console.log("txid");
-            console.log(txid);
-
-            console.log(`https://solscan.io/tx/${txid}`);
-            
-            */
-
-            // Confirm transaction
+            setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
 
             const reply = await ( await fetch('https://damasrv.fixip.org:13144/sendtransaction', {
                     headers: {
@@ -185,14 +172,6 @@ export default function SwapForm() {
                 })).json();
 
             console.log(reply);
-
-            /*const latestBlockHash = await connection.getLatestBlockhash();
-
-            console.log("latestBlockHash");
-            console.log(latestBlockHash.blockhash);
-            console.log(latestBlockHash.lastValidBlockHeight);*/
-
-            setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
             
             const replyconfirm = await ( await fetch('https://damasrv.fixip.org:13144/confirmtransaction', {
                     headers: {
@@ -203,12 +182,6 @@ export default function SwapForm() {
                 })).json();
 
             console.log(replyconfirm)
-
-            /*await connection.confirmTransaction({
-                blockhash: latestBlockHash.blockhash,
-                lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
-                signature: txid
-            }, 'confirmed');*/
 
             setMessage({ message: "Transaction success", color: "rgb(21 128 61)", timeout: 10000 });
 
