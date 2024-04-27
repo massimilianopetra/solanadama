@@ -64,7 +64,7 @@ export default function MobileMenu() {
         <ul className="bg-gray-800 px-4 py-2">
           <li>
             <Link
-              href="/airdrop" className="font-medium rounded-lg text-blue-600 hover:text-gray-200  py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
+              href="/airdrop" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
               Subscribe Airdrop
             </Link>
           </li>
