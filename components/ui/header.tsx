@@ -33,12 +33,6 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="#roadmap" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                  Road Map
-                </Link>
-              </li>
-              <li>
                 <ToggleTheme />
               </li>
               <li>
