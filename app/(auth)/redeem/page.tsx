@@ -1,20 +1,19 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react';
-import Link from "@mui/material/Link";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import React, { useState, useEffect } from 'react';
 import HeaderApp from '@/components/ui/headerapp'
 import Wallets from '@/components/wallets'
+import DynamicMessage from '@/components/dynamicmessage';
 import { RENT_PER_TOKEN_ACCOUNT_IN_SOL, COSTS_IN_SOL } from "@/src/fee_redeeemer"
 import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink } from "@/src/fee_redeeemer"
 import { useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, Connection } from '@solana/web3.js'
+import Link from "@mui/material/Link";
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import {Button, Snackbar} from "@mui/material";
 
-interface AlertState {
-  open: boolean;
-  message: string;
-  severity: "success" | "info" | "warning" | "error" | undefined;
-}
+
+
 
 const emptyAccountsColumns: GridColDef[] = [
   { field: 'id', headerName: 'id', width: 40 },
@@ -32,13 +31,12 @@ export default function Redeem() {
   const [emptyAccounts, setEmptyAccounts] = useState<EmptyAccount[]>([]);
   const [emptyAccountInfos, setEmptyAccountInfos] = useState<EmptyAccountInfo[]>();
   const [showTable, setShowTable] = useState<boolean>(false);
-  const [alertState, setAlertState] = useState<AlertState>({
-    open: false,
-    message: "",
-    severity: undefined,
-  });
+  const [dMessage, setMessage] = useState({ message: '', color: ''});
+  const [open, setOpen] = useState(false);
+  const [txCount, settxCount] = useState(0);
+
   const wallet = useWallet();
-  const donationPercentage = 10;
+
   //const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
   const connection = new Connection('https://devnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
 
@@ -69,6 +67,18 @@ export default function Redeem() {
     })();
   };
 
+  const proceedRedeem = async () => {
+    if (!emptyAccounts) return;
+    console.log("Proceeding redeem");
+    setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)"});
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(true);
+      setMessage({ message: "Transaction completed", color: "rgb(0 150 0)"});
+    }, 15000);
+    settxCount(txCount + 1);
+  }
+
   const enableTable = async () => {
     if (!emptyAccounts) return;
     setShowTable(true);
@@ -78,8 +88,12 @@ export default function Redeem() {
     setShowTable(false);
   }
 
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   useEffect(loadEmptyAccounts, [
-    wallet
+    wallet, txCount
   ]);
 
   /*           <Wallets /> */
@@ -104,10 +118,10 @@ export default function Redeem() {
             {emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div>
                 <p className="text-justify">We found you have {emptyAccountInfos.length} empty token accounts. You can redeem these accounts and earn up
-                to <strong>{emptyAccountInfos.length * RENT_PER_TOKEN_ACCOUNT_IN_SOL} SOL</strong>.
+                  to <strong>{emptyAccountInfos.length * RENT_PER_TOKEN_ACCOUNT_IN_SOL} SOL</strong>.
                   By clicking on the link below you can view the list of associated Tokens and NFT. If you wish to earn the SOL currently blocked in the rents of
-                  these accounts click on the proceed button. The accounts will be permanently deleted. Before proceeding make sure these accounts are no longer of interest to you. 
-                  The transaction will costs up to <strong>{emptyAccountInfos.length *  COSTS_IN_SOL} SOL</strong>.
+                  these accounts click on the proceed button. The accounts will be permanently deleted. Before proceeding make sure these accounts are no longer of interest to you.
+                  The transaction will costs up to <strong>{emptyAccountInfos.length * COSTS_IN_SOL} SOL</strong>.
                 </p>
               </div>
               :
@@ -126,7 +140,6 @@ export default function Redeem() {
                     autoHeight
                     rows={emptyAccountInfos}
                     columns={emptyAccountsColumns}
-                    checkboxSelection
                   />
                   <button className="underline decoration-solid" onClick={disableTable}>Hide Empty Accounts Details</button>
                 </div>
@@ -138,13 +151,25 @@ export default function Redeem() {
             <br />
             <br />
             {emptyAccountInfos && emptyAccountInfos.length > 0 ?
-              <div className="flex justify-center p-1">
-                <button
-                  type="button"
-                  className="btn-sm rounded-lg text-white bg-blue-700 hover:bg-blue-900 ml-3"
-                >
-                  <span>Proceed Reedeming Accounts</span>
-                </button>
+              <div className="p-1">
+                <div>
+                  <Button variant="contained"  onClick={proceedRedeem}>Proceed Reedeming Accounts</Button>
+                  <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    message={dMessage.message}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center"
+                    }}
+                    ContentProps={{
+                      sx:{
+                        bgcolor: dMessage.color
+                      }
+                     }}
+                  />
+                </div>
               </div>
               :
               <div>
