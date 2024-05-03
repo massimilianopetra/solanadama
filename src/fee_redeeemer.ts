@@ -4,6 +4,7 @@ import * as splToken from '@solana/spl-token'
 
 
 export const RENT_PER_TOKEN_ACCOUNT_IN_SOL = 0.00203928;
+export const COSTS_IN_SOL = 0.0002;
 export const MAX_CLOSE_INSTRUCTIONS = 15;
 
 const TOKEN_METADATA_PROGRAM_ID = new anchor.web3.PublicKey(

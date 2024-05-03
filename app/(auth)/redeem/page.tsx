@@ -5,7 +5,7 @@ import Link from "@mui/material/Link";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import HeaderApp from '@/components/ui/headerapp'
 import Wallets from '@/components/wallets'
-import { RENT_PER_TOKEN_ACCOUNT_IN_SOL } from "@/src/fee_redeeemer"
+import { RENT_PER_TOKEN_ACCOUNT_IN_SOL, COSTS_IN_SOL } from "@/src/fee_redeeemer"
 import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink } from "@/src/fee_redeeemer"
 import { useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, Connection } from '@solana/web3.js'
@@ -103,9 +103,12 @@ export default function Redeem() {
             <br />
             {emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div>
-                <p>We found you have {emptyAccountInfos.length} empty token accounts. You can redeem these accounts and earn up to {emptyAccountInfos.length * RENT_PER_TOKEN_ACCOUNT_IN_SOL} SOL.
-                  By clicking on the link below you can view the list of associated Tokens and NFT, so if you want to earn the SOL currently blocked in the rents of
-                  these accounts click on the proceed button. The accounts will be permanently deleted, so make sure these accounts are no longer of interest to you.</p>
+                <p className="text-justify">We found you have {emptyAccountInfos.length} empty token accounts. You can redeem these accounts and earn up
+                to <strong>{emptyAccountInfos.length * RENT_PER_TOKEN_ACCOUNT_IN_SOL} SOL</strong>.
+                  By clicking on the link below you can view the list of associated Tokens and NFT. If you wish to earn the SOL currently blocked in the rents of
+                  these accounts click on the proceed button. The accounts will be permanently deleted. Before proceeding make sure these accounts are no longer of interest to you. 
+                  The transaction will costs up to <strong>{emptyAccountInfos.length *  COSTS_IN_SOL} SOL</strong>.
+                </p>
               </div>
               :
               <div>
@@ -127,8 +130,25 @@ export default function Redeem() {
                   />
                   <button className="underline decoration-solid" onClick={disableTable}>Hide Empty Accounts Details</button>
                 </div>
+
                 :
                 <p></p>
+            }
+            <br />
+            <br />
+            <br />
+            {emptyAccountInfos && emptyAccountInfos.length > 0 ?
+              <div className="flex justify-center p-1">
+                <button
+                  type="button"
+                  className="btn-sm rounded-lg text-white bg-blue-700 hover:bg-blue-900 ml-3"
+                >
+                  <span>Proceed Reedeming Accounts</span>
+                </button>
+              </div>
+              :
+              <div>
+              </div>
             }
           </div>
 
