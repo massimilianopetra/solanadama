@@ -27,6 +27,13 @@ export default function Footer() {
               By accessing this website, you agree that we are not liable for any loss or damage resulting from the use of the information provided herein. Past performance
               is not indicative of future results, and investment outcomes may vary.
             </p>
+            <br/>
+            <p>
+            This website incorporates functionalities that facilitate the transmission of Solana network commissions and account deletion upon user request. 
+            It is important to note that the website operates solely as a facilitator for these actions and does not bear responsibility for any damages resulting 
+            from the misuse or erroneous use of its functionalities. Users are advised to exercise caution and ensure the accuracy of their inputs when utilizing these features. 
+            By engaging with these functionalities, users acknowledge and accept the inherent risks associated with their usage.
+            </p>
           </div>
           <br />
 
