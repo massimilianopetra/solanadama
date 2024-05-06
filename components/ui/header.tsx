@@ -20,26 +20,34 @@ export default function Header() {
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
+            <li>
+                <Link
+                  href="/redeem" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
+                  Solana RecoverTool
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/airdrop" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                  Subscribe Airdrop
+                  Airdrop Subcription
                 </Link>
               </li>
               <li>
                 <Link
                   href="/swap" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                  Swap DaMa Token
+                  SwapTool
                 </Link>
               </li>
               <li>
                 <ToggleTheme />
               </li>
+              {/*
               <li>
                 <Link href="/dapp" className="btn-sm rounded-lg text-white bg-blue-700 hover:bg-blue-900 ml-3">
                   Launch App
                 </Link>
               </li>
+               */}
             </ul>
           </nav>
 

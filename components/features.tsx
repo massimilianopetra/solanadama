@@ -22,9 +22,9 @@ export default function Features() {
                   <path className="stroke-current text-purple-100" d="M8.86 1.18C3.8 1.988 0 5.6 0 10c0 5 4.9 9 11 9a10.55 10.55 0 003.1-.4L20 21l-.6-5.2a9.125 9.125 0 001.991-2.948" />
                 </g>
               </svg>
-              <h4 className="h4 mb-2">CriptoMunity</h4>
+              <h4 className="h4 mb-2">Solana SwissKnife Tools</h4>
               <p className="text-lg text-gray-400 text-center">
-                Personal, anonymous messaging service that allows startups to be put in contact with their investors based on Solana wallet encryption.
+              Unlocking the potential of the Solana ecosystem has never been easier. Introducing Solana Tools, the all-in-one solution designed to streamline and enhance your Solana experience.
               </p>
             </div>
 

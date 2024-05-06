@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from "react";
-import HeaderApp from '@/components/ui/headerapp'
+import Header from '@/components/ui/header'
 import Wallets from '@/components/wallets'
 import SwapForm from "@/components/swapform"
 
@@ -20,7 +20,7 @@ export default function Home() {
   console.log("Swap Application");
   return (
     <>
-      <HeaderApp />
+      <Header />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
 
         {/* Description  */}

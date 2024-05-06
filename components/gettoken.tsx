@@ -13,8 +13,8 @@ export default function GetToken() {
                             </a>
                             <br />
                             <p className="text-gray-500 dark:text-gray-200 text-center mb-8">If you want to support our project and if you believe in what we are building you can either get our
-                                utility token by directly connect to the <a href="/swap" className="text-gray-400 hover:text-blue-500" target="_blank"> SolaDama Swap App </a>
-                                or if you prefer follow the 3 steps listed below and obtain Dama token from the main DEX exchanges
+                                utility token by directly connect to our <a href="/swap" className="text-gray-400 hover:text-blue-500" target="_blank"> SwapTool </a>
+                                or if you prefer follow the 3 steps listed below and obtain Dama token from the main DEX exchanges Jupiter
                             </p>
                         </div>
                     </div>
@@ -91,12 +91,7 @@ export default function GetToken() {
                             available for them to hold over time, potentially benefiting from any increase in value. However, at any point, if you, as early adopter, no longer wish
                             to hold onto the token, you have the option to exchange it on the market, as it is listed from the outset
                         </p>
-                        <p className="text-gray-500 dark:text-gray-200 mb-8 text-justify">
-                            Below, you can view the performance chart available on the
-                            <a href="https://dexscreener.com/solana/bbg5xqoqvbbiym32bnu4adcnyt7mcbmpashywhdy6zxu" className="text-gray-400 hover:text-red-500" target="_blank"> DEXSCREEN </a>
-                            aggregator, allowing you to track the token's progress over time
-                        </p>
-                        <img src="/images/graph.png" />
+
                     </div>
                 </div>
             </div>

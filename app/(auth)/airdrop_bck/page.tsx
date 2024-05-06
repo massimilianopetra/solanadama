@@ -21,7 +21,7 @@ export default function Home() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
 
-            <h1 className="h1 mb-4" data-aos="fade-up">Airdrop Subscription Tool</h1>
+            <h1 className="h1 mb-4" data-aos="fade-up">DaMa Tokens Airdrop </h1>
             <div className="flex justify-center items-center">
               <img className="dark:hidden w-20 h-20 " src="/images/airdrop.png" />
             </div>
@@ -35,20 +35,20 @@ export default function Home() {
               </p>
               <br />
               <p>
-               We're currently developing a new tool called Targeted Airdrop, tailored for Solana enthusiasts like yo!. 
-               This tool aims to simplify the process of subscribing to targeted airdrops for active users within the Solana network. 
-               Rest assured, our team is hard at work crafting this platform to provide the best possible experience for our community. 
-               sStay tuned for updates as we work towards bringing Targeted Airdrop to life!
+                To receive the airdrop of our token, please enter the publicaddress of your Solana wallet.
+                You will immediately find out if you are among the first 1000 users who have retweeted and are entitled to receive DaMa tokens!
               </p>
               <p>
 
               </p>
               <br />
-              <div className="flex justify-center items-center">
-                <img className="w-40 h-40 " src="/images/wprogress.png" />
-              </div>
+              <p className='text-center'>
+
+              </p>
               <br />
             </div>
+
+            <AirdropForm />
 
           </div>
 
