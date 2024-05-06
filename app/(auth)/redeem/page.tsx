@@ -10,7 +10,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, Connection } from '@solana/web3.js'
 import Link from "@mui/material/Link";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import {Button, Snackbar} from "@mui/material";
+import { Button, Snackbar } from "@mui/material";
 
 
 
@@ -31,7 +31,7 @@ export default function Redeem() {
   const [emptyAccounts, setEmptyAccounts] = useState<EmptyAccount[]>([]);
   const [emptyAccountInfos, setEmptyAccountInfos] = useState<EmptyAccountInfo[]>();
   const [showTable, setShowTable] = useState<boolean>(false);
-  const [dMessage, setMessage] = useState({ message: '', color: ''});
+  const [dMessage, setMessage] = useState({ message: '', color: '' });
   const [open, setOpen] = useState(false);
   const [txCount, settxCount] = useState(0);
 
@@ -70,11 +70,11 @@ export default function Redeem() {
   const proceedRedeem = async () => {
     if (!emptyAccounts) return;
     console.log("Proceeding redeem");
-    setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)"});
+    setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)" });
     setOpen(true);
     setTimeout(() => {
       setOpen(true);
-      setMessage({ message: "Transaction completed", color: "rgb(0 150 0)"});
+      setMessage({ message: "Transaction completed", color: "rgb(0 150 0)" });
     }, 15000);
     settxCount(txCount + 1);
   }
@@ -153,22 +153,7 @@ export default function Redeem() {
             {emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div className="p-1">
                 <div>
-                  <Button variant="contained"  onClick={proceedRedeem}>Proceed Reedeming Accounts</Button>
-                  <Snackbar
-                    open={open}
-                    autoHideDuration={6000}
-                    onClose={handleClose}
-                    message={dMessage.message}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center"
-                    }}
-                    ContentProps={{
-                      sx:{
-                        bgcolor: dMessage.color
-                      }
-                     }}
-                  />
+                  <Button variant="contained" onClick={proceedRedeem}>Proceed Reedeming Accounts</Button>
                 </div>
               </div>
               :
@@ -178,7 +163,21 @@ export default function Redeem() {
           </div>
 
         </div>
-
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message={dMessage.message}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center"
+          }}
+          ContentProps={{
+            sx: {
+              bgcolor: dMessage.color
+            }
+          }}
+        />
       </div>
 
 
