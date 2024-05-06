@@ -3,14 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import HeaderApp from '@/components/ui/headerapp'
 import Wallets from '@/components/wallets'
-import DynamicMessage from '@/components/dynamicmessage';
 import { RENT_PER_TOKEN_ACCOUNT_IN_SOL, COSTS_IN_SOL } from "@/src/fee_redeeemer"
 import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink } from "@/src/fee_redeeemer"
 import { useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, Connection } from '@solana/web3.js'
-import Link from "@mui/material/Link";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Snackbar } from "@mui/material";
+import { Button, Snackbar, Link } from "@mui/material";
 
 
 
