@@ -35,7 +35,7 @@ export default function Home() {
               </p>
               <br />
               <p>
-               We're currently developing a new tool called Targeted Airdrop, tailored for Solana enthusiasts like yo!. 
+               We're currently developing a new tool called Targeted Airdrop, tailored for Solana enthusiasts like you!. 
                This tool aims to simplify the process of subscribing to targeted airdrops for active users within the Solana network. 
                Rest assured, our team is hard at work crafting this platform to provide the best possible experience for our community. 
                sStay tuned for updates as we work towards bringing Targeted Airdrop to life!
