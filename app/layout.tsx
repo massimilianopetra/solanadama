@@ -55,4 +55,4 @@ export default function RootLayout({
   )
 }
 
-/* <script src="https://terminal.jup.ag/main-v2.js" /> */
+

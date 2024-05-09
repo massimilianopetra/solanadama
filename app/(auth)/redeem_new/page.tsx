@@ -1,17 +1,20 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
+import { PublicKey } from '@solana/web3.js';
 import Header from '@/components/ui/header'
 import Wallets from '@/components/wallets'
 import { RENT_PER_TOKEN_ACCOUNT_IN_SOL, COSTS_IN_SOL } from "@/src/fee_redeeemer"
-import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink } from "@/src/fee_redeeemer"
+import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink, getPKsToClose } from "@/src/fee_redeeemer"
+import { createCloseEmptyAccountsTransactions } from "@/src/fee_redeeemer"
 import { useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, Connection } from '@solana/web3.js'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Button, Snackbar, Link } from "@mui/material";
+import bs58 from 'bs58';
 
 
-
+const publicKey = new PublicKey("Gk6ZR5gQHF4wtiLmqC62dmuEFDD7mydXDZqnQnnkHz28");
 
 const emptyAccountsColumns: GridColDef[] = [
   { field: 'id', headerName: 'id', width: 40 },
@@ -35,7 +38,7 @@ export default function Redeem() {
 
   const wallet = useWallet();
 
-  //const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
+  // const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
   const connection = new Connection('https://devnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
 
   const loadEmptyAccounts = () => {
@@ -53,7 +56,7 @@ export default function Redeem() {
         setEmptyAccounts(updatedEA);
 
         const updateStateCallback = (data: EmptyAccountInfo[]) => {
-          setEmptyAccountInfos(undefined); setEmptyAccountInfos(data);
+          setEmptyAccountInfos(data);
         }
 
         const eaInfos = await getEmptyAccountInfos(connection, updatedEA, updateStateCallback);
@@ -65,16 +68,69 @@ export default function Redeem() {
     })();
   };
 
+
+
   const proceedRedeem = async () => {
-    if (!emptyAccounts) return;
-    console.log("Proceeding redeem");
-    setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)" });
-    setOpen(true);
-    setTimeout(() => {
+
+    if (!wallet.connected || !wallet.signTransaction) {
+      console.error(
+        'Wallet is not connected or does not support signing transactions'
+      );
+      return;
+    }
+    if (wallet.publicKey && emptyAccounts && emptyAccounts.length > 0) {
+      console.log("Proceeding redeem");
+
+
+      const closablePKs = getPKsToClose(emptyAccounts);
+      const transaction = await createCloseEmptyAccountsTransactions(wallet.publicKey, closablePKs, publicKey);
+      let blockhash = (await connection.getLatestBlockhash('finalized')).blockhash;
+      console.log(blockhash);
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = wallet.publicKey;
+      
+      // sign the transaction
+      const signedTransaction = await wallet.signTransaction(transaction);
+
+      // Execute the transaction
+      setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)" });
+      setOpen(true);
+      const rawSignedTransaction = signedTransaction.serialize();
+      const signedTX = bs58.encode(rawSignedTransaction);
+      console.log("signedTX");
+      console.log(signedTX);
+
+      
+      const reply = await (await fetch('https://damasrv.fixip.org:13144/sendtransactiondevnet', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          "jsonrpc": "2.0",
+          "id": 1,
+          "method": "sendTransaction",
+          "params": [signedTX]
+        })
+      })).json();
+
+      console.log(reply);
+
+      const replyconfirm = await (await fetch('https://damasrv.fixip.org:13144/confirmtransaction', {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(reply)
+      })).json();
+      console.log(replyconfirm)
+      
+      
       setOpen(true);
       setMessage({ message: "Transaction completed", color: "rgb(0 150 0)" });
-    }, 15000);
-    settxCount(txCount + 1);
+
+      settxCount(txCount + 1);
+    }
   }
 
   const enableTable = async () => {

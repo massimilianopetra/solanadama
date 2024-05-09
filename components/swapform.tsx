@@ -118,7 +118,6 @@ export default function SwapForm() {
             return;
         }
 
-        console.log("aa")
         // get serialized transactions for the swap
         const { swapTransaction } = await (
             await fetch('https://quote-api.jup.ag/v6/swap', {
