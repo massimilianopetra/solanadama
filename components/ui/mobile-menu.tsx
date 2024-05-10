@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 
 import ToggleTheme from "@/components/ui/toggletheme"
-import Walletss from '@/components/walletss'
 import ConnectButton from '../connect_button';
 
 export default function MobileMenu() {
@@ -68,7 +67,7 @@ export default function MobileMenu() {
           <li>
             <Link
               href="/redeem" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
-              Solana RecoverTool
+              Solana RecoveringTool
             </Link>
           </li>
           <li>
@@ -89,12 +88,11 @@ export default function MobileMenu() {
           </li>
           <li>
             <div className="flex  py-2 justify-center">
-              <ConnectButton handler={() => setOpen(true)} />
+              <ConnectButton />
             </div>
           </li>
         </ul>
       </nav>
-      <Walletss open={open} setOpen={setOpen} />
     </div>
 
   )
