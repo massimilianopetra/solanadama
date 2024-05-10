@@ -67,6 +67,12 @@ export default function MobileMenu() {
         <ul className="bg-gray-800 px-4 py-2">
           <li>
             <Link
+              href="/redeem" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
+              Solana RecoverTool
+            </Link>
+          </li>
+          <li>
+            <Link
               href="/airdrop" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
               Subscribe Airdrop
             </Link>
@@ -77,15 +83,19 @@ export default function MobileMenu() {
             </Link>
           </li>
           <li>
-            <ToggleTheme />
+            <div className="flex  py-2 justify-center">
+              <ToggleTheme />
+            </div>
           </li>
           <li>
-                <ConnectButton handler = {() => setOpen(true)}/>
-                </li>
+            <div className="flex  py-2 justify-center">
+              <ConnectButton handler={() => setOpen(true)} />
+            </div>
+          </li>
         </ul>
       </nav>
-      <Walletss open = {open} setOpen={setOpen}/>
+      <Walletss open={open} setOpen={setOpen} />
     </div>
-    
+
   )
 }
