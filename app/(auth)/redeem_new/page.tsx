@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { PublicKey } from '@solana/web3.js';
 import Header from '@/components/ui/header'
 
-import Wallets from '@/components/wallets'
 import { RENT_PER_TOKEN_ACCOUNT_IN_SOL, COSTS_IN_SOL } from "@/src/fee_redeeemer"
 import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink, getPKsToClose } from "@/src/fee_redeeemer"
 import { createCloseEmptyAccountsTransactions } from "@/src/fee_redeeemer"
