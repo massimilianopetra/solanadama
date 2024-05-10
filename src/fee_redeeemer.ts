@@ -1,4 +1,4 @@
-import * as sweb3 from '@solana/web3.js';
+import {Transaction, PublicKey, Connection, SystemProgram, LAMPORTS_PER_SOL} from '@solana/web3.js';
 import * as anchor from "@project-serum/anchor";
 import * as splToken from '@solana/spl-token'
 
@@ -10,25 +10,25 @@ export const MAX_CLOSE_INSTRUCTIONS = 15;
 const TOKEN_METADATA_PROGRAM_ID = new anchor.web3.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
 
 export interface EmptyAccount {
-    publicKey: sweb3.PublicKey;
+    publicKey: PublicKey;
     lamports: number;
-    mint: sweb3.PublicKey;
+    mint: PublicKey;
 }
 
 export interface EmptyAccountInfo {
     id: number,
     account: EmptyAccount,
     lamports: number,
-    metadata?: sweb3.PublicKey,
+    metadata?: PublicKey,
     image?: string,
     name?: string
 }
 
-export function getPKsToClose(emptyAccounts: EmptyAccount[]): sweb3.PublicKey[] {
+export function getPKsToClose(emptyAccounts: EmptyAccount[]): PublicKey[] {
     return emptyAccounts.map(eA => eA.publicKey);
 }
 
-export async function findEmptyTokenAccounts(connection: sweb3.Connection, owner: sweb3.PublicKey): Promise<EmptyAccount[]> {
+export async function findEmptyTokenAccounts(connection: Connection, owner: PublicKey): Promise<EmptyAccount[]> {
     const response = await connection.getTokenAccountsByOwner(owner, { programId: splToken.TOKEN_PROGRAM_ID });
     //console.log(response);
     const emptyAccounts: EmptyAccount[] = [];
@@ -52,7 +52,7 @@ export async function findEmptyTokenAccounts(connection: sweb3.Connection, owner
         }
         if (isEmpty) {
             //console.log("found empty account: "+account.pubkey.toBase58());
-            const mint = new sweb3.PublicKey(account.account.data.slice(0, 32));
+            const mint = new PublicKey(account.account.data.slice(0, 32));
             const eA: EmptyAccount = {
                 publicKey: account.pubkey,
                 lamports: account.account.lamports,
@@ -65,16 +65,11 @@ export async function findEmptyTokenAccounts(connection: sweb3.Connection, owner
 
 }
 
-export async function createCloseEmptyAccountsTransactions(owner: sweb3.PublicKey,
-    accountPKs: sweb3.PublicKey[], costAddress?: sweb3.PublicKey): Promise<sweb3.Transaction> {
+export async function createCloseEmptyAccountsTransactions(owner: PublicKey, accountPKs: PublicKey[], costAddress: PublicKey): Promise<Transaction> {
 
-    const closeInstructions = accountPKs.map(accPK => splToken.createCloseAccountInstruction(
-        accPK,
-        owner,
-        owner
-    ));
+    const closeInstructions = accountPKs.map(accPK => splToken.createCloseAccountInstruction(accPK,owner,owner));
 
-    const transaction = new sweb3.Transaction();
+    const transaction = new Transaction();
     let i = 0;
     let closed = 0;
 
@@ -93,17 +88,17 @@ export async function createCloseEmptyAccountsTransactions(owner: sweb3.PublicKe
     // add cost instruction
     if (costAddress) {
         const costAmount = COSTS_IN_SOL * closed;
-        const costInstruction = sweb3.SystemProgram.transfer({
+        const costInstruction = SystemProgram.transfer({
             fromPubkey: owner,
             toPubkey: costAddress,
-            lamports: sweb3.LAMPORTS_PER_SOL * costAmount,
+            lamports: LAMPORTS_PER_SOL * costAmount,
         });
         transaction.add(costInstruction);
     }
     return transaction;
 }
 
-export async function getEmptyAccountInfos(connection: sweb3.Connection, accounts: EmptyAccount[], callback?: any): Promise<EmptyAccountInfo[]> {
+export async function getEmptyAccountInfos(connection: Connection, accounts: EmptyAccount[], callback?: any): Promise<EmptyAccountInfo[]> {
     const accList = accounts.map((acc, i) => {
         const adr = acc.publicKey.toBase58();
         return {
@@ -119,7 +114,7 @@ export async function getEmptyAccountInfos(connection: sweb3.Connection, account
     return accList;
 }
 
-async function populateAll(connection: sweb3.Connection, accounts: EmptyAccountInfo[], callback?: any) {
+async function populateAll(connection: Connection, accounts: EmptyAccountInfo[], callback?: any) {
     for (const acc of accounts) {
         await populateMetadataInfo(connection, acc);
     }
@@ -130,7 +125,7 @@ export function getSolscanLink(address: string): string {
     return "https://solscan.io/address/" + address;
 }
 
-async function populateMetadataInfo(connection: sweb3.Connection, accountInfo: EmptyAccountInfo) {
+async function populateMetadataInfo(connection: Connection, accountInfo: EmptyAccountInfo) {
     const metadataAccount = await getMetadataAccount(accountInfo.account.mint);
     accountInfo.metadata = metadataAccount;
     accountInfo.name = await getNFTName(connection, metadataAccount);
@@ -150,7 +145,7 @@ async function getMetadataAccount(mint: anchor.web3.PublicKey): Promise<anchor.w
     )[0];
 };
 
-async function getNFTName(connection: sweb3.Connection, metadataAccount: sweb3.PublicKey): Promise<string | undefined> {
+async function getNFTName(connection: Connection, metadataAccount: PublicKey): Promise<string | undefined> {
     const metadataAccountInfo = await connection.getAccountInfo(metadataAccount);
 
     if (metadataAccountInfo) {

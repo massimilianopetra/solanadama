@@ -1,6 +1,10 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useMemo, useEffect } from "react";
+import { ConnectionProvider, WalletProvider, } from "@solana/wallet-adapter-react";
+import { PhantomWalletAdapter, SolflareWalletAdapter, MathWalletAdapter, } from "@solana/wallet-adapter-wallets";
+import { clusterApiUrl } from "@solana/web3.js";
+
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -10,7 +14,7 @@ export default function DefaultLayout({
   children,
 }: {
   children: React.ReactNode
-}) {  
+}) {
 
   useEffect(() => {
     AOS.init({
@@ -21,17 +25,32 @@ export default function DefaultLayout({
     })
   })
 
+  const wallets = useMemo(
+    () => [
+      new PhantomWalletAdapter(),
+      new SolflareWalletAdapter(),
+      new MathWalletAdapter(),
+    ],
+    []
+  );
+
+  const endpoint = useMemo(() => clusterApiUrl("mainnet-beta"), []);
+
   return (
     <>
       <main className="grow">
 
-        {/* <PageIllustration /> */}
+        <ConnectionProvider endpoint={endpoint}>
+          <WalletProvider wallets={wallets} autoConnect>
 
-        {children}
+            {children}
+
+          </WalletProvider>
+        </ConnectionProvider>
 
       </main>
 
- 
+
     </>
   )
 }

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { PublicKey } from '@solana/web3.js';
 import Header from '@/components/ui/header'
+
 import Wallets from '@/components/wallets'
 import { RENT_PER_TOKEN_ACCOUNT_IN_SOL, COSTS_IN_SOL } from "@/src/fee_redeeemer"
 import { findEmptyTokenAccounts, EmptyAccount, EmptyAccountInfo, getEmptyAccountInfos, getSolscanLink, getPKsToClose } from "@/src/fee_redeeemer"
@@ -165,10 +166,7 @@ export default function Redeem() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
 
             <h1 className="h1 mb-4" data-aos="fade-up">Redeem Tools</h1>
-            <br />
-            <Wallets />
 
-            <br />
             {emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div>
                 <p className="text-justify">We found you have {emptyAccountInfos.length} empty token accounts. You can redeem these accounts and earn up

@@ -30,9 +30,7 @@ export default function Home() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
 
             <h1 className="h1 mb-4" data-aos="fade-up">Swap Tools</h1>
-            <br />
-            <Wallets />
-            <br />
+
             <SwapForm />
 
           </div>

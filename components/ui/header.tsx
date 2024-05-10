@@ -1,9 +1,16 @@
-import Link from 'next/link'
-import MobileMenu from './mobile-menu'
+'use client'
 
+import MobileMenu from './mobile-menu';
+import { useState } from 'react';
+import { Link } from "@mui/material";
+import Walletss from '@/components/walletss'
+import ConnectButton from '../connect_button';
 import ToggleTheme from "@/components/ui/toggletheme"
 
+
 export default function Header() {
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="absolute w-full z-30">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -20,7 +27,7 @@ export default function Header() {
           <nav className="hidden md:flex md:grow">
             {/* Desktop sign in links */}
             <ul className="flex grow justify-end flex-wrap items-center">
-            <li>
+              <li>
                 <Link
                   href="/redeem" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
                   Solana RecoverTool
@@ -38,16 +45,16 @@ export default function Header() {
                   SwapTool
                 </Link>
               </li>
+
               <li>
                 <ToggleTheme />
               </li>
-              {/*
-              <li>
-                <Link href="/dapp" className="btn-sm rounded-lg text-white bg-blue-700 hover:bg-blue-900 ml-3">
-                  Launch App
-                </Link>
-              </li>
-               */}
+
+                <li>
+                <ConnectButton handler = {() => setOpen(true)}/>
+                </li>
+
+
             </ul>
           </nav>
 
@@ -56,6 +63,8 @@ export default function Header() {
         </div>
       </div>
 
+
+      <Walletss open = {open} setOpen={setOpen}/>
 
 
     </header>

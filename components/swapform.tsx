@@ -42,7 +42,7 @@ export default function SwapForm() {
 
     const wallet = useWallet();
 
-    const connection = new Connection('https://mainnet.helius-rpc.com/?api-key='+process.env.NEXT_PUBLIC_HELIUSKEY);
+    //const connection = new Connection('https://mainnet.helius-rpc.com/?api-key='+process.env.NEXT_PUBLIC_HELIUSKEY);
     
     //const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/'+process.env.NEXT_PUBLIC_ALKEMYKEY);
 

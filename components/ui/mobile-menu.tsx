@@ -4,9 +4,12 @@ import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 
 import ToggleTheme from "@/components/ui/toggletheme"
+import Walletss from '@/components/walletss'
+import ConnectButton from '../connect_button';
 
 export default function MobileMenu() {
-  const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false)
+  const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
 
   const trigger = useRef<HTMLButtonElement>(null)
   const mobileNav = useRef<HTMLDivElement>(null)
@@ -77,15 +80,12 @@ export default function MobileMenu() {
             <ToggleTheme />
           </li>
           <li>
-            <Link
-              href="/dapp"
-              className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-blue-600 hover:bg-blue-700 transition duration-150 ease-in-out" onClick={() => setMobileNavOpen(false)}
-            >
-              Launch App
-            </Link>
-          </li>
+                <ConnectButton handler = {() => setOpen(true)}/>
+                </li>
         </ul>
       </nav>
+      <Walletss open = {open} setOpen={setOpen}/>
     </div>
+    
   )
 }
