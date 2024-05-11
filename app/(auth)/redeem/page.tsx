@@ -10,7 +10,7 @@ import { createCloseEmptyAccountsTransactions } from "@/src/fee_redeeemer"
 import { useWallet } from '@solana/wallet-adapter-react'
 import { LAMPORTS_PER_SOL, Connection } from '@solana/web3.js'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Button, Snackbar, Link, Stack } from "@mui/material";
+import { Button, Snackbar, Link, Stack, Box } from "@mui/material";
 import bs58 from 'bs58';
 
 
@@ -171,7 +171,7 @@ export default function Redeem() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
 
-            <h1 className="h1 mb-4" data-aos="fade-up">Solana Recovering Tool</h1>
+            <h1 className="h1 mb-4" data-aos="fade-up">Solana Redeeming Tool</h1>
 
             {emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div>
@@ -197,7 +197,7 @@ export default function Redeem() {
             <br />
             {!showTable ? <button className="underline decoration-solid" onClick={enableTable}>Show Empty Token Accounts Details</button> :
               emptyAccountInfos && emptyAccountInfos.length > 0 ?
-                <div>
+                <Box sx={{ width: '100%' }}>
                   <DataGrid sx={{
                     color: "gray",
                     border: 2,
@@ -207,7 +207,7 @@ export default function Redeem() {
                     columns={emptyAccountsColumns}
                   />
                   <button className="underline decoration-solid" onClick={disableTable}>Hide Empty Accounts Details</button>
-                </div>
+                </Box>
 
                 :
                 <p></p>

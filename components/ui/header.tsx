@@ -29,7 +29,7 @@ export default function Header() {
               <li>
                 <Link
                   href="/redeem" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out">
-                  Solana RecoveringTool
+                  Solana RedeemingTool
                 </Link>
               </li>
               <li>

@@ -67,7 +67,7 @@ export default function MobileMenu() {
           <li>
             <Link
               href="/redeem" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
-              Solana RecoveringTool
+              Solana RedeemingTool
             </Link>
           </li>
           <li>

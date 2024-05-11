@@ -183,7 +183,7 @@ export default function Redeem() {
             <br />
             {!showTable ? <button className="underline decoration-solid" onClick={enableTable}>Show Empty Token Accounts Details</button> :
               emptyAccountInfos && emptyAccountInfos.length > 0 ?
-                <div>
+                <div >
                   <DataGrid sx={{
                     color: "gray",
                     border: 2,
