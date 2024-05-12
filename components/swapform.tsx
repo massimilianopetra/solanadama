@@ -158,7 +158,8 @@ export default function SwapForm() {
 
             setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
 
-            const reply = await ( await fetch('https://damasrv.fixip.org:13144/sendtransaction', {
+            // const reply = await ( await fetch('https://damasrv.fixip.org:13144/sendtransaction', {
+            const reply = await ( await fetch('https://damasrv.fixip.org/sendtransaction', {
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -172,7 +173,8 @@ export default function SwapForm() {
 
             console.log(reply);
             
-            const replyconfirm = await ( await fetch('https://damasrv.fixip.org:13144/confirmtransaction', {
+            // const replyconfirm = await ( await fetch('https://damasrv.fixip.org:13144/confirmtransaction', {
+            const replyconfirm = await ( await fetch('https://damasrv.fixip.org/confirmtransaction', {
                     headers: {
                         'Content-Type': 'application/json'
                     },
