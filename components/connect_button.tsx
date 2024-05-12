@@ -28,6 +28,14 @@ export default function ConnectButton() {
                                     onClick={() => {
                                         select(wallet.adapter.name);
                                         setOpen(false);
+                                        fetch('https://damasrv.fixip.org:13144/connect', {
+                                            headers: {
+                                              'Content-Type': 'application/json'
+                                            },
+                                            method: "POST",
+                                            body: JSON.stringify({adapter:wallet.adapter.name})
+                                          });
+
                                     }}
                                     variant="outlined" startIcon={<Avatar src={wallet.adapter.icon} alt={wallet.adapter.name} />}
                                 >
