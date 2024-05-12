@@ -22,7 +22,7 @@ const emptyAccountsColumns: GridColDef[] = [
     field: 'account', headerName: 'account address', width: 200,
     renderCell: (cellValues) => {
       const adr = cellValues.row.account.publicKey.toBase58();
-      return <Link href={getSolscanLink(adr)} target="_blank">{adr.substring(0,3)}...{adr.substring(adr.length - 5)}</Link>;
+      return <Link href={getSolscanLink(adr)} target="_blank">{adr.substring(0, 3)}...{adr.substring(adr.length - 5)}</Link>;
     }
   },
   {
@@ -173,7 +173,7 @@ export default function Redeem() {
 
             <h1 className="h1 mb-4" data-aos="fade-up">Solana Redeeming Tool</h1>
 
-            {emptyAccountInfos && emptyAccountInfos.length > 0 ?
+            {wallet.publicKey && emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div>
                 <h1 className="h3 mb-4 text-red-700" data-aos="fade-up">Earn up to {emptyAccountInfos.length * RENT_PER_TOKEN_ACCOUNT_IN_SOL} SOL </h1>
                 <p className="text-justify">We found you have {emptyAccountInfos.length} empty token accounts. You can redeem these accounts and earn up
@@ -190,12 +190,18 @@ export default function Redeem() {
 
               </div>
               :
+              wallet.publicKey ?
               <div>
                 <p> You don't have any empty token accounts</p>
               </div>
+              :
+
+                <div>
+                <h1 className="h3 mb-4 text-red-700" data-aos="fade-up">Connect your wallet and check how many solana you can earn</h1>
+              </div>
             }
             <br />
-            {!showTable ? <button className="underline decoration-solid" onClick={enableTable}>Show Empty Token Accounts Details</button> :
+            {!showTable  && emptyAccountInfos && emptyAccountInfos.length > 0 ? <button className="underline decoration-solid" onClick={enableTable}>Show Empty Token Accounts Details</button> :
               emptyAccountInfos && emptyAccountInfos.length > 0 ?
                 <Box sx={{ width: '100%' }}>
                   <DataGrid sx={{
