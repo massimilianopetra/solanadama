@@ -31,7 +31,7 @@ export default function ToggleTheme() {
         <div className='px-2'>
             <button title="Toggle Theme" onClick={switchTheme} className="
         w-12 
-        h-6 
+        h-6
         rounded-full 
         p-1 
         bg-gray-200 
@@ -41,7 +41,7 @@ export default function ToggleTheme() {
         duration-500 
         ease-in
         focus:outline-none 
-        focus:ring-2 
+        focus:ring-1
         focus:ring-blue-700 
         dark:focus:ring-blue-600 
         focus:border-transparent

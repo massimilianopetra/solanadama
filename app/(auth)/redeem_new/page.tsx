@@ -53,7 +53,7 @@ export default function DataGridDemo() {
   return (
     <>
       <Header />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-32 relative text-center">
+      <div className="max-w-6xl mx-auto  px-4  pt-32  text-center">
         <h1 className="h1 mb-4" data-aos="fade-up">Test Page</h1>
 
         <Box sx={{ height: 400 }}>
@@ -72,7 +72,29 @@ export default function DataGridDemo() {
             disableRowSelectionOnClick
           />
         </Box>
+        <div className="max-w-4xl mx-auto text-center pb-12">
+
+          <h1 className="h1 mb-4" data-aos="fade-up">SolanaDama</h1>
+          <p className="text-xl text-white-100 mb-8" data-aos="fade-up" data-aos-delay="200">
+            The Reliability CryptoMunity Platform powered by Dama Token
+          </p>
+
+          <p className="text-justify text-xl text-gray-500 dark:text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+            SolanaDama is a cutting-edge platform designed to assess the reliability of new cryptocurrency tokens.
+            Offering a set of versatile tools, we provide transparent and reliable evaluations of tokens,
+            enabling investors to make informed decisions and reducing the risk of falling victim to fraudulent schemes.
+          </p>
+          <p className="text-justify text-xl text-gray-500 dark:text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+
+            Furthermore SolanDama serves as a bridge between investors and emerging crypto ventures, facilitating seamless engagement and investment opportunities in the
+            dynamic world of cryptocurrency. Leveraging with our tools we offers a secure and efficient environment
+            for investors to discover, evaluate, and participate in promising token projects, fostering a vibrant community of crypto enthusiasts and empowering
+            startups to thrive in the digital economy. Join SolanaDama today and be at the forefront of the next wave of innovation in crypto investment.
+          </p>
+
         </div>
+
+      </div>
     </>
   );
 }
