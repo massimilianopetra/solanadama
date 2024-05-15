@@ -30,8 +30,7 @@ export default function ConnectButton() {
                                         setOpen(false);
                                         //fetch('https://damasrv.fixip.org:13144/connect', {
                                         //fetch('https://damasrv.fixip.org/connect', {
-                                        fetch('/hello');
-                                        fetch('https://damasrv.fixip.org/connect', {
+                                        fetch('/connect', {
                                             headers: {
                                               'Content-Type': 'application/json'
                                             },

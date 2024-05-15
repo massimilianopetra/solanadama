@@ -109,7 +109,7 @@ export default function Redeem() {
 
 
       // const reply = await (await fetch('https://damasrv.fixip.org:13144/sendtransaction', {
-      const reply = await (await fetch('https://damasrv.fixip.org/sendtransaction', {
+      const reply = await (await fetch('/sendtransaction', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -125,7 +125,7 @@ export default function Redeem() {
       console.log(reply);
 
       // const replyconfirm = await (await fetch('https://damasrv.fixip.org:13144/confirmtransaction', {
-      const replyconfirm = await (await fetch('https://damasrv.fixip.org/confirmtransaction', {
+      const replyconfirm = await (await fetch('/confirmtransaction', {
         headers: {
           'Content-Type': 'application/json'
         },
