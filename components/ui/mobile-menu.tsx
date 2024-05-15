@@ -73,12 +73,12 @@ export default function MobileMenu() {
           <li>
             <Link
               href="/airdrop" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
-              Subscribe Airdrop
+              Airdrop Subcription
             </Link>
           </li>
           <li>
             <Link href="/swap" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
-              Swap DaMa Token
+              SwapTool
             </Link>
           </li>
 

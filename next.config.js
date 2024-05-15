@@ -4,19 +4,19 @@ const nextConfig =
     async rewrites() {
         return [
             {
-                source: '/connect',
+                source: '/api/connect',
                 destination: 'https://damasrv.fixip.org/connect',
             },
             {
-                source: '/confirmtransaction',
+                source: '/api/confirmtransaction',
                 destination: 'https://damasrv.fixip.org/confirmtransaction',
             },
             {
-                source: '/sendtransaction',
+                source: '/api/sendtransaction',
                 destination: 'https://damasrv.fixip.org/sendtransaction',
             },
             {
-                source: '/sendtransactiondevnet',
+                source: '/api/sendtransactiondevnet',
                 destination: 'https://damasrv.fixip.org/sendtransactiondevnet',
             },
         ]

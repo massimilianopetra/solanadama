@@ -28,9 +28,8 @@ export default function ConnectButton() {
                                     onClick={() => {
                                         select(wallet.adapter.name);
                                         setOpen(false);
-                                        //fetch('https://damasrv.fixip.org:13144/connect', {
-                                        //fetch('https://damasrv.fixip.org/connect', {
-                                        fetch('/connect', {
+
+                                        fetch('/api/connect', {
                                             headers: {
                                               'Content-Type': 'application/json'
                                             },
