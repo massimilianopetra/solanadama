@@ -3,29 +3,17 @@
 import React, { useState } from "react";
 import Link from 'next/link';
 
-import Button from '@mui/material/Button';
+import { Button, Snackbar } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { Console } from "console";
 
-type Values = {
-
-  email: string,
-  subject: string,
-  message: string,
-}
 
 export default function Contactus() {
 
-  const [values, setValues] = useState<Values>({
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [dMessage, setMessage] = useState({ message: '', color: '' });
+  const [open, setOpen] = useState(false);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-    console.log("change")
-
+  const handleClose = () => {
+    setOpen(false);
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -47,11 +35,19 @@ export default function Contactus() {
       },
       method: "POST",
       body: JSON.stringify({
-         email : email.value,
-         subject: subject.value,
-         message: message.value
+        email: email.value,
+        subject: subject.value,
+        message: message.value
       })
     });
+
+    setOpen(true);
+    setMessage({ message: "Message sent", color: "rgb(0 150 0)" });
+    setTimeout(() => {setOpen(false);}, 3000);
+    email.value = "";
+    subject.value = "";
+    message.value = "";
+    
   }
 
   return (
@@ -79,7 +75,7 @@ export default function Contactus() {
 
             {/* Social links */}
             <div className="flex justify-center">
-              <h2 className="text-4xl tracking-tight font-extrabold align-right text-center text-white ">Contact Us</h2>
+              <h2 className="text-3xl tracking-tight font-extrabold align-right text-center text-white ">Contact Us</h2>
 
               {/* X */}
               <Link href="https://twitter.com/SolanaDaMa" className="flex justify-center items-center text-white hover:text-gray-100 hover:bg-blue-600 rounded-full transition duration-150 ease-in-out" aria-label="Twitter">
@@ -126,7 +122,21 @@ export default function Contactus() {
               </form>
             </div>
           </div>
-
+          <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={handleClose}
+            message={dMessage.message}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center"
+            }}
+            ContentProps={{
+              sx: {
+                bgcolor: dMessage.color
+              }
+            }}
+          />
         </div>
 
       </div>
