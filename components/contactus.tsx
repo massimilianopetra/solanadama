@@ -47,7 +47,7 @@ export default function Contactus() {
     email.value = "";
     subject.value = "";
     message.value = "";
-    
+
   }
 
   return (
@@ -75,7 +75,7 @@ export default function Contactus() {
 
             {/* Social links */}
             <div className="flex justify-center">
-              <h2 className="text-3xl tracking-tight font-extrabold align-right text-center text-white ">Contact Us</h2>
+              <h2 className="text-2xl tracking-tight font-extrabold align-right text-center text-white ">Contact Us</h2>
 
               {/* X */}
               <Link href="https://twitter.com/SolanaDaMa" className="flex justify-center items-center text-white hover:text-gray-100 hover:bg-blue-600 rounded-full transition duration-150 ease-in-out" aria-label="Twitter">
@@ -101,7 +101,7 @@ export default function Contactus() {
             </div>
 
             <div>
-              <p className="mb-4  font-light text-center text-white sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
+              <p className="mb-4  font-light text-center text-white ">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
               <form onSubmit={(e) => handleSubmit(e)} className="space-y-8">
                 <div>
                   <label className="block mb-2 text-sm font-medium text-white">Your email</label>
