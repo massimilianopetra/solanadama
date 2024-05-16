@@ -81,7 +81,12 @@ export default function MobileMenu() {
               SwapTool
             </Link>
           </li>
-
+          <li>
+            <Link
+              href="/contactus" className="font-medium rounded-lg text-blue-600 hover:text-gray-200 px-2 py-3 flex items-center transition duration-150 ease-in-out">
+              Contact us
+            </Link>
+          </li>
           <li>
             <div className="flex  py-2 justify-center">
               <ConnectButton />

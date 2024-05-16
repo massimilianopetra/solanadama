@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import Contactus from '@/components/contactus'
 
 import Header from '@/components/ui/header'
 
@@ -72,7 +73,7 @@ export default function DataGridDemo() {
             disableRowSelectionOnClick
           />
         </Box>
-        <div className="max-w-4xl mx-auto text-center pb-12">
+        <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
 
           <h1 className="h1 mb-4" data-aos="fade-up">SolanaDama</h1>
           <p className="text-xl text-white-100 mb-8" data-aos="fade-up" data-aos-delay="200">
@@ -95,6 +96,7 @@ export default function DataGridDemo() {
         </div>
 
       </div>
+      <Contactus />
     </>
   );
 }

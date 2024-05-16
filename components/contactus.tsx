@@ -1,10 +1,65 @@
-export default function Newsletter() {
+'use client'
+
+import React, { useState } from "react";
+import Link from 'next/link';
+
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import { Console } from "console";
+
+type Values = {
+
+  email: string,
+  subject: string,
+  message: string,
+}
+
+export default function Contactus() {
+
+  const [values, setValues] = useState<Values>({
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+    console.log("change")
+
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("Submit")
+
+    const form = event.currentTarget;
+    const email = form.elements.namedItem('email') as HTMLInputElement;
+    const subject = form.elements.namedItem('subject') as HTMLInputElement;
+    const message = form.elements.namedItem('message') as HTMLInputElement;
+
+    console.log("Email: " + email.value);
+    console.log("Subject: " + subject.value);
+    console.log("Message: " + message.value);
+
+    fetch("/api/sendemail", {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+         email : email.value,
+         subject: subject.value,
+         message: message.value
+      })
+    });
+  }
+
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* CTA box */}
-        <div className="relative bg-blue-600 py-10 px-8 md:py-16 md:px-12" data-aos="fade-up">
+        <div className="relative bg-blue-800 py-10 px-8 md:py-16 md:px-12 rounded-lg" data-aos="fade-up">
 
           {/* Background illustration */}
           <div className="absolute right-0 top-0 -ml-40 pointer-events-none" aria-hidden="true">
@@ -19,29 +74,62 @@ export default function Newsletter() {
             </svg>
           </div>
 
-          <div className="relative flex flex-col lg:flex-row justify-between items-center">
 
-            {/* CTA content */}
-            <div className="mb-6 lg:mr-16 lg:mb-0 text-center lg:text-left lg:w-1/2">
-              <h3 className="h3 text-white mb-2">Keep in touch</h3>
-              <p className="text-purple-200 text-lg">Join our newsletter to get top news before anyone else.</p>
+          <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
+
+            {/* Social links */}
+            <div className="flex justify-center">
+              <h2 className="text-4xl tracking-tight font-extrabold align-right text-center text-white ">Contact Us</h2>
+
+              {/* X */}
+              <Link href="https://twitter.com/SolanaDaMa" className="flex justify-center items-center text-white hover:text-gray-100 hover:bg-blue-600 rounded-full transition duration-150 ease-in-out" aria-label="Twitter">
+                <svg className="w-8 h-8 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m13.063 9 3.495 4.475L20.601 9h2.454l-5.359 5.931L24 23h-4.938l-3.866-4.893L10.771 23H8.316l5.735-6.342L8 9h5.063Zm-.74 1.347h-1.457l8.875 11.232h1.36l-8.778-11.232Z" />
+                </svg>
+              </Link>
+
+              {/* Github */}
+              <Link href="https://github.com/solanadama/solanadama/tree/main" className="flex justify-center items-center text-white hover:text-gray-100 hover:bg-blue-600 rounded-full transition duration-150 ease-in-out" aria-label="Github">
+                <svg className="w-8 h-8 fill-current" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 8.2c-4.4 0-8 3.6-8 8 0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4V22c-2.2.5-2.7-1-2.7-1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.3 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6-.2 1.3-.3 2-.3s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.7 3.9.3.4.6.9.6 1.6v2.2c0 .2.1.5.6.4 3.2-1.1 5.5-4.1 5.5-7.6-.1-4.4-3.7-8-8.1-8z" />
+                </svg>
+              </Link>
+
+              {/* Telegram */}
+              <Link href="https://t.co/30uMljzVyZ" className="flex justify-center items-center text-white hover:text-gray-100 hover:bg-blue-600 rounded-full transition duration-150 ease-in-out" aria-label="Linkedin">
+                <svg className="w-8 h-8 fill-current" viewBox="-100 -100 700 700" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path>
+                </svg>
+              </Link>
+
             </div>
 
-            {/* CTA form */}
-            <form className="w-full lg:w-1/2">
-              <div className="flex flex-col sm:flex-row justify-center max-w-xs mx-auto sm:max-w-md lg:max-w-none">
-                <input type="email" className="w-full appearance-none bg-blue-700 border border-blue-500 focus:border-blue-300 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-blue-400" placeholder="Your best email…" aria-label="Your best email…" />
-                <a className="btn text-blue-600 bg-purple-100 hover:bg-white shadow" href="#0">Subscribe</a>
-              </div>
-              {/* Success message */}
-              {/* <p className="text-center lg:text-left lg:absolute mt-2 opacity-75 text-sm">Thanks for subscribing!</p> */}
-            </form>
+            <div>
+              <p className="mb-4  font-light text-center text-white sm:text-xl">Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.</p>
+              <form onSubmit={(e) => handleSubmit(e)} className="space-y-8">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-white">Your email</label>
+                  <input type="email" id="email" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="Your email" required name="email" />
+                </div>
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-white">Subject</label>
+                  <input type="text" id="subject" className="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light" placeholder="Let us know how we can help you" required name="subjext" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block mb-2 text-sm font-medium text-white">Your message</label>
+                  <textarea id="message" rows="6" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Leave a comment..." name="message" />
+                </div>
 
+                <Button type={"submit"} variant="contained" className="bg-blue-500" endIcon={<SendIcon />}>
+                  Send
+                </Button>
+              </form>
+            </div>
           </div>
 
         </div>
 
       </div>
-    </section>
+    </section >
   )
 }

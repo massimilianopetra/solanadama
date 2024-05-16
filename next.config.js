@@ -19,6 +19,10 @@ const nextConfig =
                 source: '/api/sendtransactiondevnet',
                 destination: 'https://damasrv.fixip.org/sendtransactiondevnet',
             },
+            {
+                source: '/api/sendemail',
+                destination: 'https://damasrv.fixip.org/sendemail',
+            },
         ]
     },
 }

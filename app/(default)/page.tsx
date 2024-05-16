@@ -8,7 +8,7 @@ export const metadata = {
 import Header from '@/components/ui/header'
 import Intro from '@/components/intro'
 import Features from '@/components/features'
-import Newsletter from '@/components/newsletter'
+import Contactus from '@/components/contactus'
 import GetToken from '@/components/gettoken'
 
 
@@ -19,7 +19,7 @@ export default function Home() {
       <Intro />
       <Features />
       <GetToken />
-      <Newsletter />
+      <Contactus />
     </>
   )
 }
