@@ -188,7 +188,7 @@ export default function SwapForm() {
                     console.log(replyconfirm)
                     if (replyconfirm.outcome == "Finalized")
                         finalized = true;
-                    setTimeout(() => { }, 1500); // delay 1500 msec
+                    setTimeout(() => { }, 4000); // delay 1500 msec
                 }
             }
 
