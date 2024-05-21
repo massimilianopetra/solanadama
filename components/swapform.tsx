@@ -43,7 +43,7 @@ export default function SwapForm() {
     const wallet = useWallet();
 
     //const connection = new Connection('https://mainnet.helius-rpc.com/?api-key='+process.env.NEXT_PUBLIC_HELIUSKEY);
-    
+
     //const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/'+process.env.NEXT_PUBLIC_ALKEMYKEY);
 
 
@@ -70,9 +70,9 @@ export default function SwapForm() {
     useEffect(() => {
         console.log(fromAsset);
         debounceQuoteCall(fromAmount, fromAsset, toAsset);
-    }, [fromAmount, fromAsset,toAsset, debounceQuoteCall]);
+    }, [fromAmount, fromAsset, toAsset, debounceQuoteCall]);
 
-    async function getQuote(currentAmount: number, 
+    async function getQuote(currentAmount: number,
         currentFromAsset: { name: string; mint: string; decimals: number },
         currentToAsset: { name: string; mint: string; decimals: number }) {
 
@@ -135,7 +135,7 @@ export default function SwapForm() {
                 }),
             })
         ).json();
-        
+
         try {
             // deserialize the transaction
             const swapTransactionBuf = Buffer.from(swapTransaction, 'base64');
@@ -158,31 +158,45 @@ export default function SwapForm() {
 
             setMessage({ message: "Transaction in progress", color: "rgb(150 150 150)", timeout: -1 });
 
-            const reply = await ( await fetch('/api/sendtransaction', {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify({  "jsonrpc": "2.0",
-                                            "id" : 1,
-                                            "method" : "sendTransaction",
-                                            "params" : [signedTX]
+            const reply = await (await fetch('/api/sendtransaction', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "sendTransaction",
+                    "params": [signedTX]
                 })
-                })).json();
+            })).json();
 
-            console.log(reply);
-            
-            const replyconfirm = await ( await fetch('/api/confirmtransaction', {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify(reply)
-                })).json();
+            console.log(reply.outcome);
 
-            console.log(replyconfirm)
+            var finalized = false;
 
-            setMessage({ message: "Transaction success", color: "rgb(21 128 61)", timeout: 10000 });
+            for (let i = 0; i < 6; i++) {
+                if (!finalized) {
+                    const replyconfirm = await (await fetch('/api/confirmtransaction', {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: reply.outcome
+                    })).json();
+
+                    console.log(replyconfirm)
+                    if (replyconfirm.outcome == "Finalized")
+                        finalized = true;
+                    setTimeout(() => { }, 1500); // delay 1500 msec
+                }
+            }
+
+            if (finalized) {
+                setMessage({ message: "Transaction success", color: "rgb(21 128 61)", timeout: 10000 });
+            } else {
+                setMessage({ message: "Transaction failure", color: "rgb(220 38 38)", timeout: 10000 });
+            }
 
         } catch (error) {
             console.error('Error signing or sending the transaction:', error);
