@@ -46,6 +46,9 @@ export default function SwapForm() {
 
     //const connection = new Connection('https://solana-mainnet.g.alchemy.com/v2/'+process.env.NEXT_PUBLIC_ALKEMYKEY);
 
+    function sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
 
     const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(`From Asset Change: ${event.target.value}`);
@@ -188,7 +191,7 @@ export default function SwapForm() {
                     console.log(replyconfirm)
                     if (replyconfirm.outcome == "Finalized")
                         finalized = true;
-                    setTimeout(() => { }, 4000); // delay 1500 msec
+                    await sleep(2000); // delay 2000 msec
                 }
             }
 
