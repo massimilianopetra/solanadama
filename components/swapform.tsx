@@ -175,7 +175,7 @@ export default function SwapForm() {
 
             var finalized = false;
 
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 10; i++) {
                 if (!finalized) {
                     const replyconfirm = await (await fetch('/api/confirmtransaction', {
                         headers: {
