@@ -48,7 +48,7 @@ export default function SwapForm() {
 
     function sleep(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
-      }
+    }
 
     const handleFromAssetChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(`From Asset Change: ${event.target.value}`);
@@ -191,7 +191,7 @@ export default function SwapForm() {
                     console.log(replyconfirm)
                     if (replyconfirm.outcome == "Finalized")
                         finalized = true;
-                    await sleep(2000); // delay 2000 msec
+                    await sleep(4000); // delay 2000 msec
                 }
             }
 
