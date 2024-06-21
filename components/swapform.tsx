@@ -174,7 +174,7 @@ export default function SwapForm() {
                 })
             })).json();
 
-            console.log(reply.outcome);
+            console.log(reply);
 
             var finalized = false;
 
@@ -185,7 +185,7 @@ export default function SwapForm() {
                             'Content-Type': 'application/json'
                         },
                         method: "POST",
-                        body: reply.outcome
+                        body: JSON.stringify(reply)
                     })).json();
 
                     console.log(replyconfirm)
