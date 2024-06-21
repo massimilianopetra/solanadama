@@ -18,7 +18,6 @@ export default function Home() {
       <Header />
       <Intro />
       <Features />
-      <GetToken />
       <Contactus />
     </>
   )

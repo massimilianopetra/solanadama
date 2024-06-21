@@ -77,11 +77,6 @@ export default function MobileMenu() {
             </Link>
           </li>
           <li>
-            <Link href="/swap" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
-              SwapTool
-            </Link>
-          </li>
-          <li>
             <Link href="/contactus" className="flex font-medium w-full text-blue-600 hover:text-gray-200 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>
               Contact us
             </Link>
