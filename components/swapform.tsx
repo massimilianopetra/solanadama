@@ -178,7 +178,7 @@ export default function SwapForm() {
 
             var finalized = false;
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 4; i++) {
                 if (!finalized) {
                     const replyconfirm = await (await fetch('/api/confirmtransaction', {
                         headers: {
@@ -189,7 +189,9 @@ export default function SwapForm() {
                     })).json();
 
                     console.log(replyconfirm)
-                    if (replyconfirm.outcome == "Finalized")
+                    if (replyconfirm.outcome == "finalized")
+                        finalized = true;
+                    if (replyconfirm.outcome == "confirmed")
                         finalized = true;
                     await sleep(4000); // delay 2000 msec
                 }

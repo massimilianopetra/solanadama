@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.11.5",
     "@headlessui/react": "^1.7.17",
     "@jup-ag/api": "^6.0.16",
+    "@metaplex-foundation/mpl-token-metadata": "^2.13.0",
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.16",
     "@mui/x-data-grid": "^7.3.2",

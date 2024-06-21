@@ -12,6 +12,10 @@ const nextConfig =
                 destination: 'https://damasrv.fixip.org/confirmtransaction',
             },
             {
+                source: '/api/confirmtransactiondevnet',
+                destination: 'https://damasrv.fixip.org/confirmtransactiondevnet',
+            },
+            {
                 source: '/api/sendtransaction',
                 destination: 'https://damasrv.fixip.org/sendtransaction',
             },

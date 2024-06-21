@@ -45,8 +45,8 @@ export default function Redeem() {
 
   const wallet = useWallet();
 
-  const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
-  //const connection = new Connection('https://devnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
+  //const connection = new Connection('https://mainnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
+  const connection = new Connection('https://devnet.helius-rpc.com/?api-key=' + process.env.NEXT_PUBLIC_HELIUSKEY);
 
   const loadEmptyAccounts = () => {
     (async () => {
@@ -108,7 +108,7 @@ export default function Redeem() {
       console.log(signedTX);
 
 
-      const reply = await (await fetch('/api/sendtransaction', {
+      const reply = await (await fetch('/api/sendtransactiondevnet', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -123,7 +123,7 @@ export default function Redeem() {
 
       console.log(reply);
 
-      const replyconfirm = await (await fetch('/api/confirmtransaction', {
+      const replyconfirm = await (await fetch('/api/confirmtransactiondevnet', {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -171,7 +171,7 @@ export default function Redeem() {
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
 
-            <h1 className="h1 mb-4" data-aos="fade-up">Solana Redeeming Tool</h1>
+            <h1 className="h1 mb-4" data-aos="fade-up">Solana Redeeming Tool DevNet</h1>
 
             {wallet.publicKey && emptyAccountInfos && emptyAccountInfos.length > 0 ?
               <div>

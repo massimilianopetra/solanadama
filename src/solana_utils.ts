@@ -1,6 +1,6 @@
-import {Transaction, PublicKey, Connection, SystemProgram, LAMPORTS_PER_SOL} from '@solana/web3.js';
+import { Transaction, PublicKey, Connection, SystemProgram, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import * as anchor from "@project-serum/anchor";
-import * as splToken from '@solana/spl-token'
+import * as splToken from '@solana/spl-token';
 
 
 export const RENT_PER_TOKEN_ACCOUNT_IN_SOL = 0.00203928;
@@ -22,6 +22,97 @@ export interface EmptyAccountInfo {
     metadata?: PublicKey,
     image?: string,
     name?: string
+}
+
+export async function createMintTransaction(connection: Connection, payer: PublicKey, mint: PublicKey, decimals: number): Promise<Transaction> {
+    const lamports = await splToken.getMinimumBalanceForRentExemptMint(connection);;
+    const programId = splToken.TOKEN_PROGRAM_ID
+
+    const transaction = new Transaction().add(
+        SystemProgram.createAccount({
+            fromPubkey: payer,
+            newAccountPubkey: mint,
+            space: splToken.MINT_SIZE,
+            lamports,
+            programId,
+        }),
+        splToken.createInitializeMintInstruction(
+            mint,
+            decimals,
+            payer,
+            payer,
+            programId
+        )
+    );
+
+    return transaction
+}
+
+export async function createTokenAccountTransaction(connection: Connection, payer: PublicKey, mint: PublicKey): Promise<Transaction> {
+    const mintState = await splToken.getMint(connection, mint);
+    const accountKeypair = Keypair.generate();
+    const space = splToken.getAccountLenForMint(mintState);
+    const lamports = await connection.getMinimumBalanceForRentExemption(space);
+    const programId = splToken.TOKEN_PROGRAM_ID
+
+    const transaction = new Transaction().add(
+        SystemProgram.createAccount({
+            fromPubkey: payer,
+            newAccountPubkey: accountKeypair.publicKey,
+            space,
+            lamports,
+            programId,
+        }),
+        splToken.createInitializeAccountInstruction(
+            accountKeypair.publicKey,
+            mint,
+            payer,
+            programId
+        )
+    );
+
+    return transaction
+}
+
+export async function createAssociatedTokenAccountTransaction(payer: PublicKey, mint: PublicKey): Promise<Transaction> {
+    const associatedTokenAddress = await splToken.getAssociatedTokenAddress(mint, payer, false);
+
+    const transaction = new Transaction().add(
+        splToken.createAssociatedTokenAccountInstruction(
+            payer,
+            associatedTokenAddress,
+            payer,
+            mint
+        )
+    )
+
+    return transaction
+}
+
+export async function ceaeteMintToTransaction(authority: PublicKey, mint: PublicKey, amount: number, destination: PublicKey): Promise<Transaction> {
+    const transaction = new Transaction().add(
+        splToken.createMintToInstruction(
+            mint,
+            destination,
+            authority,
+            amount
+        )
+    )
+
+    return transaction
+}
+
+export function createTransferTransaction(source: PublicKey, destination: PublicKey, owner: PublicKey, amount: number): Transaction {
+    const transaction = new Transaction().add(
+        splToken.createTransferInstruction(
+            source,
+            destination,
+            owner,
+            amount,
+        )
+    )
+
+    return transaction
 }
 
 export function getPKsToClose(emptyAccounts: EmptyAccount[]): PublicKey[] {
@@ -67,7 +158,7 @@ export async function findEmptyTokenAccounts(connection: Connection, owner: Publ
 
 export async function createCloseEmptyAccountsTransactions(owner: PublicKey, accountPKs: PublicKey[], costAddress: PublicKey): Promise<Transaction> {
 
-    const closeInstructions = accountPKs.map(accPK => splToken.createCloseAccountInstruction(accPK,owner,owner));
+    const closeInstructions = accountPKs.map(accPK => splToken.createCloseAccountInstruction(accPK, owner, owner));
 
     const transaction = new Transaction();
     let i = 0;
@@ -82,7 +173,7 @@ export async function createCloseEmptyAccountsTransactions(owner: PublicKey, acc
         const nextInstr = closeInstructions.pop();
         if (nextInstr) {
             transaction.add(nextInstr);
-        }            
+        }
     }
 
     // add cost instruction
