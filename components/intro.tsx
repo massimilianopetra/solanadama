@@ -25,7 +25,7 @@ export default function Intro() {
 
             <h1 className="h1 mb-4" data-aos="fade-up">SolanaDama</h1>
             <p className="text-xl text-white-100 mb-8" data-aos="fade-up" data-aos-delay="200">
-              The Reliability CryptoMunity Platform powered by Dama Token
+              The Reliability CryptoMunity Platform
             </p>
 
             <p className="text-justify text-xl text-gray-500 dark:text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
